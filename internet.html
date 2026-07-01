@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PTIS PPD Lundu — Maklumat Internet & Capaian Sekolah</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #003380;
+      --navy-dk: #002060;
+      --gold:    #FFD700;
+      --gold-dk: #e6c200;
+      --red:     #cc0001;
+      --bg:      #f0f4f8;
+      --surface: #ffffff;
+      --border:  #d1d9e0;
+      --text:    #1e2d3d;
+      --muted:   #6b7c93;
+      --radius:  12px;
+      --shadow:  0 2px 16px rgba(0,0,0,.08);
+      --primary: #1a56db;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* ======= TOPBAR ======= */
+    .topbar {
+      background: var(--navy-dk);
+      color: rgba(255,255,255,.7);
+      font-size: .75rem;
+      padding: 5px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ======= HEADER ======= */
+    .header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%); }
+
+    .header-brand {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-wrap {
+      width: 60px; height: 60px;
+      background: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 3px rgba(255,215,0,.2);
+    }
+    .logo-wrap i { font-size: 1.8rem; color: var(--navy); }
+
+    .brand-text .kem  { font-size: .72rem; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .04em; }
+    .brand-text .jab  { font-size: 1.15rem; font-weight: 700; color: #fff; margin: 2px 0; }
+    .brand-text .unit { font-size: .83rem; color: var(--gold); font-weight: 600; }
+
+    .header-stripe { height: 5px; background: linear-gradient(to right, var(--gold), #e6c200, var(--red), #e6c200, var(--gold)); }
+
+    .header-nav { background: rgba(0,0,0,.25); border-top: 1px solid rgba(255,255,255,.1); }
+    .nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; overflow-x: auto; }
+    .nav-link {
+      color: rgba(255,255,255,.75); text-decoration: none;
+      padding: 10px 16px; font-size: .85rem; font-weight: 500;
+      display: flex; align-items: center; gap: 6px; white-space: nowrap;
+      border-bottom: 3px solid transparent; transition: all .2s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ======= PAGE HERO ======= */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy-dk) 0%, #001540 100%);
+      color: #fff; padding: 36px 24px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 6px; }
+    .page-hero h1 span { color: var(--gold); }
+    .page-hero p { opacity: .75; font-size: .95rem; }
+    .breadcrumb {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border-radius: 20px;
+      padding: 5px 16px; font-size: .78rem; margin-bottom: 14px;
+      color: rgba(255,255,255,.7);
+    }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+
+    /* ======= MAIN ======= */
+    .main { max-width: 1400px; margin: 0 auto; padding: 28px 20px; }
+
+    /* ======= TABS ======= */
+    .page-tabs {
+      display: flex; gap: 4px; margin-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .page-tab-btn {
+      background: none; border: none;
+      padding: 11px 20px; font-size: .88rem; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: -2px; border: 2px solid transparent;
+      transition: all .2s; white-space: nowrap;
+    }
+    .page-tab-btn:hover { color: var(--navy); background: #f0f4ff; }
+    .page-tab-btn.active {
+      color: var(--navy); background: var(--surface);
+      border-color: var(--border) var(--border) var(--surface);
+      border-bottom: 2px solid var(--surface);
+    }
+    .page-tab { display: none; }
+    .page-tab.active { display: block; }
+
+    /* ======= CARD ======= */
+    .card {
+      background: var(--surface); border-radius: var(--radius);
+      box-shadow: var(--shadow); border: 1px solid var(--border);
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 22px;
+      background: linear-gradient(to right, #f8fafc, #f1f5fb);
+      border-bottom: 2px solid var(--navy);
+    }
+    .card-header i { font-size: 1.2rem; color: var(--navy); }
+    .card-header h2 { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .card-header .badge-count {
+      margin-left: auto;
+      background: var(--navy); color: #fff;
+      padding: 3px 12px; border-radius: 20px; font-size: .78rem; font-weight: 700;
+    }
+    .card-body { padding: 20px 22px; }
+
+    /* ======= TOOLBAR ======= */
+    .toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .toolbar-left { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    .search-box {
+      padding: 8px 14px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: .85rem; width: 260px;
+      transition: border-color .2s;
+    }
+    .search-box:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(0,51,128,.1); }
+
+    select.filter-sel {
+      padding: 8px 12px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: .85rem; background: #fff;
+      cursor: pointer;
+    }
+    select.filter-sel:focus { outline: none; border-color: var(--navy); }
+
+    /* ======= BUTTONS ======= */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border: none; border-radius: 8px;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      transition: all .2s; text-decoration: none;
+    }
+    .btn-navy   { background: var(--navy); color: #fff; }
+    .btn-navy:hover { background: var(--navy-dk); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,51,128,.3); }
+    .btn-gold   { background: var(--gold); color: var(--navy-dk); }
+    .btn-gold:hover { background: var(--gold-dk); }
+    .btn-outline { background: #fff; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: #fff; }
+    .btn-success { background: #0d9e6e; color: #fff; }
+    .btn-success:hover { background: #0a7a56; }
+    .btn-danger  { background: #e02424; color: #fff; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-sm { padding: 6px 12px; font-size: .78rem; }
+
+    /* ======= FORM ======= */
+    .form-grid-3 {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 16px;
+    }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+
+    @media (max-width: 1100px) { .form-grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px)  { .form-grid-3, .form-grid-4 { grid-template-columns: 1fr; } }
+    @media (max-width: 700px)  { .form-grid-2 { grid-template-columns: 1fr; } }
+
+    .form-section {
+      background: #f8fafc; border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px;
+    }
+    .form-section h3 {
+      font-size: .9rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 14px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 7px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label { font-size: .82rem; font-weight: 600; color: var(--text); }
+    .required { color: #e02424; }
+    input[type="text"], input[type="date"], input[type="number"],
+    input[type="email"], input[type="tel"], select, textarea {
+      padding: 8px 11px; border: 1.5px solid var(--border);
+      border-radius: 7px; font-size: .85rem; font-family: inherit;
+      color: var(--text); background: #fff; width: 100%;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(0,51,128,.1);
+    }
+    input.err, select.err { border-color: #e02424; }
+    .err-msg { color: #e02424; font-size: .75rem; display: none; }
+    .err-msg.show { display: block; }
+    textarea { resize: vertical; min-height: 70px; }
+
+    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .form-row2 { grid-template-columns: 1fr; } }
+
+    .form-actions {
+      display: flex; justify-content: flex-end; gap: 10px;
+      padding-top: 14px; border-top: 1px solid var(--border); margin-top: 4px;
+    }
+
+    /* ======= TABLE ======= */
+    .table-wrap { overflow-x: auto; }
+
+    table.data-table {
+      width: 100%; border-collapse: collapse; font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    table.data-table thead tr {
+      background: linear-gradient(to right, var(--navy), var(--navy-dk));
+      color: #fff;
+    }
+
+    table.data-table thead th {
+      padding: 10px 12px; text-align: center;
+      font-weight: 600; font-size: .78rem;
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+
+    table.data-table thead th:last-child { border-right: none; }
+
+    /* Sub-header grouping */
+    table.data-table thead tr.sub-head {
+      background: #1340b0;
+    }
+    table.data-table thead tr.sub-head th {
+      font-size: .73rem; font-weight: 500;
+      padding: 7px 10px;
+      background: #1a56db;
+    }
+
+    table.data-table tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    table.data-table tbody tr:nth-child(even) { background: #f8fafc; }
+    table.data-table tbody tr:hover { background: #eff6ff; }
+    table.data-table tbody td {
+      padding: 9px 11px; vertical-align: middle;
+      text-align: center; color: var(--text);
+    }
+    table.data-table tbody td:first-child,
+    table.data-table tbody td.td-left { text-align: left; }
+
+    .empty-row td { text-align: center !important; color: var(--muted); padding: 40px !important; }
+    .empty-row i { display: block; font-size: 1.8rem; margin-bottom: 8px; opacity: .35; }
+
+    /* Column group headers */
+    th.grp-head {
+      background: #0b2d8c !important;
+      font-size: .8rem !important; font-weight: 700 !important;
+      letter-spacing: .03em;
+    }
+
+    /* ======= BADGES ======= */
+    .badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 9px; border-radius: 20px;
+      font-size: .72rem; font-weight: 700; white-space: nowrap;
+    }
+    .b-aktif     { background: #dcfce7; color: #14532d; }
+    .b-rosak     { background: #fee2e2; color: #7f1d1d; }
+    .b-pending   { background: #fef9c3; color: #713f12; }
+    .b-selesai   { background: #dcfce7; color: #166534; }
+    .b-celcom    { background: #e0f2fe; color: #075985; }
+    .b-maxis     { background: #fce7f3; color: #9d174d; }
+    .b-tm        { background: #fff7ed; color: #9a3412; }
+    .b-digi      { background: #fef9c3; color: #713f12; }
+    .b-unifi     { background: #ede9fe; color: #5b21b6; }
+    .b-yes        { background: #ecfdf5; color: #064e3b; }
+    .b-lain      { background: #f1f5f9; color: #475569; }
+    .b-ada       { background: #dcfce7; color: #14532d; }
+    .b-tiada     { background: #fee2e2; color: #7f1d1d; }
+    .b-broadband { background: #dbeafe; color: #1e40af; }
+    .b-fiber     { background: #ede9fe; color: #4c1d95; }
+    .b-mbnb      { background: #ecfdf5; color: #064e3b; }
+
+    /* ======= ACTION BTNS ======= */
+    .act-btns { display: flex; gap: 4px; justify-content: center; }
+    .act-btn {
+      padding: 4px 9px; border: none; border-radius: 5px;
+      cursor: pointer; font-size: .75rem; transition: all .15s;
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .act-view { background: #dbeafe; color: #1e40af; }
+    .act-view:hover { background: #bfdbfe; }
+    .act-edit { background: #fef9c3; color: #92400e; }
+    .act-edit:hover { background: #fde68a; }
+    .act-del  { background: #fee2e2; color: #b91c1c; }
+    .act-del:hover  { background: #fecaca; }
+
+    /* ======= SUMMARY CARDS ======= */
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px; margin-bottom: 24px;
+    }
+    @media (max-width: 1100px) { .summary-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px)  { .summary-grid { grid-template-columns: 1fr 1fr; } }
+
+    .sum-card {
+      background: var(--surface); border-radius: var(--radius);
+      padding: 18px 16px; text-align: center;
+      border: 1px solid var(--border); box-shadow: var(--shadow);
+      transition: transform .2s;
+    }
+    .sum-card:hover { transform: translateY(-3px); }
+    .sum-card .sum-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .sum-card .sum-num  { font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .sum-card .sum-lbl  { font-size: .75rem; color: var(--muted); margin-top: 4px; }
+
+    /* ======= SIJIL CARD ======= */
+    .sijil-preview {
+      background: linear-gradient(135deg, #f8faff 0%, #eff6ff 100%);
+      border: 2px solid var(--navy);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sijil-preview::before {
+      content: '';
+      position: absolute; inset: 8px;
+      border: 1px dashed rgba(0,51,128,.2);
+      border-radius: 8px; pointer-events: none;
+    }
+    .sijil-watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 5rem; opacity: .04; color: var(--navy);
+      font-weight: 900; pointer-events: none;
+      white-space: nowrap;
+    }
+    .sijil-logo { font-size: 3rem; color: var(--navy); margin-bottom: 10px; }
+    .sijil-title { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .sijil-subtitle { font-size: 1rem; color: var(--muted); margin-bottom: 20px; }
+    .sijil-body { max-width: 600px; margin: 0 auto; }
+    .sijil-field {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid rgba(0,51,128,.1);
+      font-size: .88rem;
+    }
+    .sijil-field label { color: var(--muted); font-weight: 600; }
+    .sijil-field span  { color: var(--navy); font-weight: 700; }
+    .sijil-gold-bar {
+      height: 6px;
+      background: linear-gradient(to right, var(--gold), var(--red), var(--gold));
+      border-radius: 3px; margin: 20px 0;
+    }
+    .sijil-sign-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 24px;
+    }
+    .sijil-sign-box {
+      border-top: 2px solid var(--navy); padding-top: 10px;
+      text-align: center; font-size: .82rem; color: var(--muted);
+    }
+    .sijil-sign-box strong { display: block; color: var(--text); font-size: .88rem; }
+
+    /* ======= MODAL ======= */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      z-index: 600; display: flex; align-items: center; justify-content: center;
+      padding: 20px; backdrop-filter: blur(4px);
+    }
+    .modal-overlay[hidden] { display: none; }
+    .modal-box {
+      background: var(--surface); border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(0,0,0,.2);
+      width: 100%; max-width: 680px; max-height: 90vh;
+      display: flex; flex-direction: column;
+      animation: mIn .25s ease;
+    }
+    .modal-box.modal-lg { max-width: 900px; }
+    @keyframes mIn { from { opacity:0; transform: scale(.93) translateY(16px); } to { opacity:1; transform: scale(1) translateY(0); } }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 22px; border-bottom: 1px solid var(--border);
+    }
+    .modal-header h3 { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .modal-close {
+      background: none; border: none; font-size: 1rem;
+      cursor: pointer; color: var(--muted); padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .modal-close:hover { background: #fee2e2; color: #e02424; }
+    .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
+    .modal-footer {
+      padding: 12px 22px; border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 8px;
+    }
+
+    /* Detail grid */
+    .det-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .det-full  { grid-column: 1 / -1; }
+    .det-item label { font-size: .72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .det-item p     { font-size: .88rem; color: var(--text); font-weight: 500; margin-top: 2px; }
+
+    /* ======= TOAST ======= */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: .88rem; font-weight: 500; color: #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      transform: translateY(70px); opacity: 0;
+      transition: all .35s cubic-bezier(.34,1.56,.64,1);
+      z-index: 9999; display: flex; align-items: center; gap: 8px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #0d9e6e; }
+    .toast.error   { background: #e02424; }
+    .toast.info    { background: var(--navy); }
+
+    /* ======= PRINT ======= */
+    @media print {
+      .topbar, .header, .header-stripe, .header-nav, .page-hero,
+      .page-tabs, .toolbar, .act-btns, .btn, .modal-overlay,
+      .toast, footer { display: none !important; }
+      body { background: #fff; }
+      .sijil-preview { border: 2px solid #000; }
+    }
+
+    /* ======= FOOTER ======= */
+    footer {
+      background: var(--navy-dk); color: rgba(255,255,255,.65);
+      text-align: center; padding: 24px;
+      font-size: .82rem; margin-top: 20px;
+    }
+    footer .org { color: var(--gold); font-weight: 700; font-size: .92rem; margin-bottom: 4px; }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 768px) {
+      .main { padding: 16px 12px; }
+      .card-body { padding: 14px; }
+      .summary-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span><i class="fas fa-globe"></i> Portal Rasmi PTIS PPD Lundu</span>
+    <span><i class="fas fa-clock"></i> <span id="masa"></span></span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="logo-wrap"><i class="fas fa-graduation-cap"></i></div>
+      <div class="brand-text">
+        <div class="kem">🇲🇾 Kementerian Pendidikan Malaysia</div>
+        <div class="jab">Pejabat Pendidikan Daerah Lundu</div>
+        <div class="unit"><i class="fas fa-microchip"></i> Unit Pengurusan Teknologi Maklumat &amp; Komunikasi (PTIS)</div>
+      </div>
+    </div>
+    <div class="header-stripe"></div>
+    <nav class="header-nav">
+      <div class="nav-inner">
+        <a href="homepage.html"   class="nav-link"><i class="fas fa-home"></i> Laman Utama</a>
+        <a href="index.html#pendaftaran" class="nav-link"><i class="fas fa-laptop"></i> Daftar Peralatan</a>
+        <a href="index.html#dokumen"     class="nav-link"><i class="fas fa-folder-open"></i> Dokumen ICT</a>
+        <a href="index.html#respon"      class="nav-link"><i class="fas fa-comments"></i> Respon Pengadu</a>
+        <a href="internet.html"  class="nav-link active"><i class="fas fa-wifi"></i> Internet &amp; Capaian</a>
+        <a href="index.html#senarai"     class="nav-link"><i class="fas fa-list-alt"></i> Senarai Rekod</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="breadcrumb">
+      <a href="homepage.html"><i class="fas fa-home"></i> Laman Utama</a>
+      <i class="fas fa-chevron-right" style="font-size:.65rem"></i>
+      <span>Internet &amp; Capaian</span>
+    </div>
+    <h1><i class="fas fa-wifi" style="color:var(--gold)"></i> Maklumat <span>Internet &amp; Capaian</span> Sekolah</h1>
+    <p>Pengurusan data capaian internet, sijil pentaulihan, sijil akuan penerimaan dan maklumat syarikat telekomunikasi berdaftar</p>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- SUMMARY CARDS -->
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="sum-icon">🏫</div>
+        <div class="sum-num" id="sumSekolah">0</div>
+        <div class="sum-lbl">Jumlah Sekolah</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon">📶</div>
+        <div class="sum-num" id="sumAktif">0</div>
+        <div class="sum-lbl">Capaian Aktif</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon">📜</div>
+        <div class="sum-num" id="sumSijilP">0</div>
+        <div class="sum-lbl">Sijil Pentaulihan</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon">✅</div>
+        <div class="sum-num" id="sumSijilA">0</div>
+        <div class="sum-lbl">Sijil Akuan Penerimaan</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon">⚠️</div>
+        <div class="sum-num" id="sumIssue">0</div>
+        <div class="sum-lbl">Isu / Tiada Capaian</div>
+      </div>
+    </div>
+
+    <!-- PAGE TABS -->
+    <div class="page-tabs">
+      <button class="page-tab-btn active" data-tab="tabCapaian">
+        <i class="fas fa-wifi"></i> Data Capaian Internet
+      </button>
+      <button class="page-tab-btn" data-tab="tabSijilP">
+        <i class="fas fa-certificate"></i> Sijil Pentaulihan &amp; Pengujian
+      </button>
+      <button class="page-tab-btn" data-tab="tabSijilA">
+        <i class="fas fa-file-signature"></i> Sijil Akuan Penerimaan
+      </button>
+      <button class="page-tab-btn" data-tab="tabTelco">
+        <i class="fas fa-tower-broadcast"></i> Syarikat Telekomunikasi
+      </button>
+    </div>
+
+    <!-- =========================================================
+         TAB 1: DATA CAPAIAN INTERNET
+    ========================================================= -->
+    <div id="tabCapaian" class="page-tab active">
+
+      <!-- BORANG INPUT -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-plus-circle"></i>
+          <h2>Tambah / Kemaskini Data Capaian Internet Sekolah</h2>
+        </div>
+        <div class="card-body">
+          <form id="formCapaian" novalidate>
+            <div class="form-grid-3">
+
+              <!-- Maklumat Sekolah -->
+              <div class="form-section">
+                <h3><i class="fas fa-school"></i> Maklumat Sekolah</h3>
+                <div class="form-group">
+                  <label>Nama Sekolah <span class="required">*</span></label>
+                  <input type="text" id="namaSekolah" placeholder="cth: SK Lundu" required />
+                  <span class="err-msg">Sila masukkan nama sekolah.</span>
+                </div>
+                <div class="form-group">
+                  <label>Kod Sekolah <span class="required">*</span></label>
+                  <input type="text" id="kodSekolah" placeholder="cth: YAA1001" required />
+                  <span class="err-msg">Sila masukkan kod sekolah.</span>
+                </div>
+                <div class="form-group">
+                  <label>Lokasi / Alamat</label>
+                  <input type="text" id="lokasiSekolah" placeholder="Kawasan / mukim" />
+                </div>
+              </div>
+
+              <!-- Saluran 1 -->
+              <div class="form-section">
+                <h3><i class="fas fa-signal"></i> Saluran 1 (Utama)</h3>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Bil. Talian</label>
+                    <input type="number" id="s1Talian" min="0" value="1" />
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis</label>
+                    <select id="s1Jenis">
+                      <option value="BROADBAND">BROADBAND</option>
+                      <option value="FIBER">FIBER</option>
+                      <option value="MBNB">MBNB</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Pakej</label>
+                    <select id="s1Pakej">
+                      <option value="CELCOM">CELCOM</option>
+                      <option value="MAXIS">MAXIS</option>
+                      <option value="TM">TM</option>
+                      <option value="DIGI">DIGI</option>
+                      <option value="UNIFI">UNIFI</option>
+                      <option value="YES">YES</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Pembesar</label>
+                    <select id="s1Pembesar">
+                      <option value="REACH30">REACH 30</option>
+                      <option value="REACH50">REACH 50</option>
+                      <option value="REACH100">REACH 100</option>
+                      <option value="UNIFI30">UNIFI 30</option>
+                      <option value="UNIFI100">UNIFI 100</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Status Saluran 1</label>
+                  <select id="s1Status">
+                    <option value="Aktif">✅ Aktif</option>
+                    <option value="Rosak">🔴 Rosak</option>
+                    <option value="Pending">⏳ Pending</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Saluran 2 -->
+              <div class="form-section">
+                <h3><i class="fas fa-signal"></i> Saluran 2 (Sandaran)</h3>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Bil. Talian</label>
+                    <input type="number" id="s2Talian" min="0" value="1" />
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis</label>
+                    <select id="s2Jenis">
+                      <option value="BROADBAND">BROADBAND</option>
+                      <option value="FIBER">FIBER</option>
+                      <option value="MBNB">MBNB</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                      <option value="—">— (Tiada)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Pakej</label>
+                    <select id="s2Pakej">
+                      <option value="CELCOM">CELCOM</option>
+                      <option value="MAXIS">MAXIS</option>
+                      <option value="TM">TM</option>
+                      <option value="DIGI">DIGI</option>
+                      <option value="UNIFI">UNIFI</option>
+                      <option value="YES">YES</option>
+                      <option value="—">— (Tiada)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Pembesar</label>
+                    <select id="s2Pembesar">
+                      <option value="REACH30">REACH 30</option>
+                      <option value="REACH50">REACH 50</option>
+                      <option value="REACH100">REACH 100</option>
+                      <option value="UNIFI30">UNIFI 30</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                      <option value="—">— (Tiada)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Jenis Wall / Pakej Penuh</label>
+                  <input type="text" id="s2WallPakej" placeholder="cth: PWALL INTERNET BROADBAND/FIBER 1 LOKASI 300MBPS" />
+                </div>
+                <div class="form-group">
+                  <label>Tarikh Pemasangan</label>
+                  <input type="date" id="s2Tarikh" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="reset" class="btn btn-outline"><i class="fas fa-undo"></i> Set Semula</button>
+              <button type="submit" class="btn btn-navy"><i class="fas fa-save"></i> Simpan Data Capaian</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SENARAI -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          <h2>Senarai Data Capaian Internet Sekolah — Daerah Lundu</h2>
+          <span class="badge-count" id="countCapaian">0 rekod</span>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input type="text" class="search-box" id="cariCapaian" placeholder="🔍 Cari nama / kod sekolah..." />
+              <select class="filter-sel" id="filterJenis">
+                <option value="">Semua Jenis</option>
+                <option value="BROADBAND">BROADBAND</option>
+                <option value="FIBER">FIBER</option>
+                <option value="MBNB">MBNB</option>
+              </select>
+              <select class="filter-sel" id="filterTelco">
+                <option value="">Semua Telco</option>
+                <option value="CELCOM">CELCOM</option>
+                <option value="MAXIS">MAXIS</option>
+                <option value="TM">TM</option>
+                <option value="DIGI">DIGI</option>
+                <option value="UNIFI">UNIFI</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSVCapaian()"><i class="fas fa-download"></i> Eksport CSV</button>
+              <button class="btn btn-navy btn-sm" onclick="window.print()"><i class="fas fa-print"></i> Cetak</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">#</th>
+                  <th rowspan="2" style="min-width:180px;text-align:left">NAMA SEKOLAH</th>
+                  <th rowspan="2">KOD SEKOLAH</th>
+                  <th colspan="4" class="grp-head">SALURAN 1</th>
+                  <th colspan="5" class="grp-head">SALURAN 2</th>
+                  <th rowspan="2">TARIKH PEMASANGAN</th>
+                  <th rowspan="2">TINDAKAN</th>
+                </tr>
+                <tr class="sub-head">
+                  <th>BIL. TALIAN</th>
+                  <th>JENIS</th>
+                  <th>PAKEJ / TELCO</th>
+                  <th>PEMBESAR</th>
+                  <th>BIL. TALIAN</th>
+                  <th>JENIS</th>
+                  <th>PAKEJ / TELCO</th>
+                  <th>PEMBESAR</th>
+                  <th>JENIS WALL / PAKEJ PENUH</th>
+                </tr>
+              </thead>
+              <tbody id="bodyCapaian">
+                <tr class="empty-row"><td colspan="14"><i class="fas fa-wifi"></i> Tiada rekod capaian internet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         TAB 2: SIJIL PENTAULIHAN & PENGUJIAN
+    ========================================================= -->
+    <div id="tabSijilP" class="page-tab">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-certificate"></i>
+          <h2>Rekod Sijil Pentaulihan &amp; Pengujian</h2>
+        </div>
+        <div class="card-body">
+          <form id="formSijilP" novalidate>
+            <div class="form-grid-2">
+              <div class="form-section">
+                <h3><i class="fas fa-school"></i> Maklumat Sekolah &amp; Sijil</h3>
+                <div class="form-group">
+                  <label>Nama Sekolah <span class="required">*</span></label>
+                  <input type="text" id="spNamaSekolah" required placeholder="Nama penuh sekolah" />
+                  <span class="err-msg">Sila masukkan nama sekolah.</span>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Kod Sekolah</label>
+                    <input type="text" id="spKodSekolah" placeholder="cth: YAA1001" />
+                  </div>
+                  <div class="form-group">
+                    <label>No. Sijil <span class="required">*</span></label>
+                    <input type="text" id="spNoSijil" required placeholder="cth: SP/2025/001" />
+                    <span class="err-msg">Sila masukkan no. sijil.</span>
+                  </div>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Tarikh Sijil <span class="required">*</span></label>
+                    <input type="date" id="spTarikh" required />
+                    <span class="err-msg">Sila pilih tarikh.</span>
+                  </div>
+                  <div class="form-group">
+                    <label>Tarikh Tamat</label>
+                    <input type="date" id="spTarikhTamat" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Syarikat Telco / Pembekal</label>
+                  <select id="spTelco">
+                    <option value="CELCOM">CELCOM</option>
+                    <option value="MAXIS">MAXIS</option>
+                    <option value="TM / UNIFI">TM / UNIFI</option>
+                    <option value="DIGI">DIGI</option>
+                    <option value="YES">YES</option>
+                    <option value="Lain-lain">Lain-lain</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3><i class="fas fa-tasks"></i> Butiran Pengujian</h3>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Jenis Capaian</label>
+                    <select id="spJenisCapaian">
+                      <option value="BROADBAND">BROADBAND</option>
+                      <option value="FIBER">FIBER</option>
+                      <option value="MBNB">MBNB</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Kelajuan (Mbps)</label>
+                    <input type="text" id="spKelajuan" placeholder="cth: 100 Mbps" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Keputusan Pengujian</label>
+                  <select id="spKeputusan">
+                    <option value="Lulus">✅ Lulus</option>
+                    <option value="Gagal">❌ Gagal</option>
+                    <option value="Dalam Proses">⏳ Dalam Proses</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Pegawai Pentauliahan</label>
+                  <input type="text" id="spPegawai" placeholder="Nama pegawai yang mengesahkan" />
+                </div>
+                <div class="form-group">
+                  <label>Catatan</label>
+                  <textarea id="spCatatan" rows="3" placeholder="Catatan tambahan pengujian..."></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="reset" class="btn btn-outline"><i class="fas fa-undo"></i> Set Semula</button>
+              <button type="submit" class="btn btn-navy"><i class="fas fa-certificate"></i> Simpan Sijil Pentaulihan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SENARAI SIJIL P -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-list"></i>
+          <h2>Senarai Sijil Pentaulihan &amp; Pengujian</h2>
+          <span class="badge-count" id="countSijilP">0 rekod</span>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <input type="text" class="search-box" id="cariSijilP" placeholder="🔍 Cari sijil..." />
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSVSijilP()"><i class="fas fa-download"></i> Eksport CSV</button>
+              <button class="btn btn-success btn-sm" onclick="cetakSijilP()"><i class="fas fa-print"></i> Jana Sijil</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="text-align:left;min-width:160px">Nama Sekolah</th>
+                  <th>Kod Sekolah</th>
+                  <th>No. Sijil</th>
+                  <th>Telco</th>
+                  <th>Jenis Capaian</th>
+                  <th>Kelajuan</th>
+                  <th>Keputusan</th>
+                  <th>Tarikh Sijil</th>
+                  <th>Tarikh Tamat</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="bodySijilP">
+                <tr class="empty-row"><td colspan="11"><i class="fas fa-certificate"></i> Tiada rekod sijil pentaulihan</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         TAB 3: SIJIL AKUAN PENERIMAAN
+    ========================================================= -->
+    <div id="tabSijilA" class="page-tab">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-file-signature"></i>
+          <h2>Rekod Sijil Akuan Penerimaan</h2>
+        </div>
+        <div class="card-body">
+          <form id="formSijilA" novalidate>
+            <div class="form-grid-2">
+              <div class="form-section">
+                <h3><i class="fas fa-school"></i> Maklumat Sekolah</h3>
+                <div class="form-group">
+                  <label>Nama Sekolah <span class="required">*</span></label>
+                  <input type="text" id="saNamaSekolah" required placeholder="Nama penuh sekolah" />
+                  <span class="err-msg">Sila masukkan nama sekolah.</span>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Kod Sekolah</label>
+                    <input type="text" id="saKodSekolah" placeholder="cth: YAA1001" />
+                  </div>
+                  <div class="form-group">
+                    <label>No. Rujukan <span class="required">*</span></label>
+                    <input type="text" id="saNoRujukan" required placeholder="cth: SAP/2025/001" />
+                    <span class="err-msg">Sila masukkan no. rujukan.</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Nama Pengetua / GB</label>
+                  <input type="text" id="saNamaPengetua" placeholder="Nama Pengetua/Guru Besar" />
+                </div>
+                <div class="form-group">
+                  <label>Jawatan</label>
+                  <input type="text" id="saJawatan" placeholder="cth: Guru Besar" />
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3><i class="fas fa-network-wired"></i> Maklumat Perkhidmatan Internet</h3>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Syarikat Telco</label>
+                    <select id="saTelco">
+                      <option value="CELCOM">CELCOM</option>
+                      <option value="MAXIS">MAXIS</option>
+                      <option value="TM / UNIFI">TM / UNIFI</option>
+                      <option value="DIGI">DIGI</option>
+                      <option value="YES">YES</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis Perkhidmatan</label>
+                    <select id="saJenis">
+                      <option value="BROADBAND">BROADBAND</option>
+                      <option value="FIBER">FIBER</option>
+                      <option value="MBNB">MBNB</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row2">
+                  <div class="form-group">
+                    <label>Pakej / Kelajuan</label>
+                    <input type="text" id="saPakej" placeholder="cth: 100 Mbps" />
+                  </div>
+                  <div class="form-group">
+                    <label>Tarikh Penerimaan <span class="required">*</span></label>
+                    <input type="date" id="saTarikh" required />
+                    <span class="err-msg">Sila pilih tarikh.</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Status Penerimaan</label>
+                  <select id="saStatus">
+                    <option value="Diterima">✅ Diterima &amp; Berfungsi</option>
+                    <option value="Diterima - Isu">⚠️ Diterima Dengan Isu</option>
+                    <option value="Ditolak">❌ Ditolak</option>
+                    <option value="Pending">⏳ Pending Tandatangan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Catatan / Pemerhatian</label>
+                  <textarea id="saCatatan" rows="3" placeholder="Catatan penerimaan..."></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="reset" class="btn btn-outline"><i class="fas fa-undo"></i> Set Semula</button>
+              <button type="submit" class="btn btn-navy"><i class="fas fa-file-signature"></i> Simpan Sijil Akuan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SENARAI SIJIL A -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-list"></i>
+          <h2>Senarai Sijil Akuan Penerimaan</h2>
+          <span class="badge-count" id="countSijilA">0 rekod</span>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <input type="text" class="search-box" id="cariSijilA" placeholder="🔍 Cari sijil akuan..." />
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" onclick="exportCSVSijilA()"><i class="fas fa-download"></i> Eksport CSV</button>
+              <button class="btn btn-success btn-sm" onclick="cetakSijilA()"><i class="fas fa-print"></i> Jana Sijil</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="text-align:left;min-width:160px">Nama Sekolah</th>
+                  <th>Kod Sekolah</th>
+                  <th>No. Rujukan</th>
+                  <th>Pengetua / GB</th>
+                  <th>Telco</th>
+                  <th>Jenis</th>
+                  <th>Pakej</th>
+                  <th>Status</th>
+                  <th>Tarikh</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="bodySijilA">
+                <tr class="empty-row"><td colspan="11"><i class="fas fa-file-signature"></i> Tiada rekod sijil akuan penerimaan</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         TAB 4: SYARIKAT TELEKOMUNIKASI
+    ========================================================= -->
+    <div id="tabTelco" class="page-tab">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-tower-broadcast"></i>
+          <h2>Syarikat Telekomunikasi Berdaftar — Daerah Lundu</h2>
+        </div>
+        <div class="card-body">
+
+          <!-- Telco Cards -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;">
+
+            <div class="card" style="margin:0;border-top:4px solid #e02424;">
+              <div class="card-body" style="padding:20px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                  <div style="width:48px;height:48px;background:#e0f2fe;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">📡</div>
+                  <div>
+                    <div style="font-weight:800;font-size:1.1rem;color:var(--navy)">CELCOM AXIATA</div>
+                    <div style="font-size:.78rem;color:var(--muted)">Telekomunikasi Berdaftar</div>
+                  </div>
+                </div>
+                <ul style="list-style:none;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:6px;">
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Perkhidmatan: Broadband, Fiber</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Pakej: REACH 30 / REACH 50</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Liputan: Daerah Lundu</li>
+                  <li><i class="fas fa-phone" style="color:var(--navy);margin-right:6px"></i>Talian: 1800-82-2828</li>
+                </ul>
+                <span class="badge b-aktif" style="margin-top:12px;display:inline-flex">✅ Berdaftar Aktif</span>
+              </div>
+            </div>
+
+            <div class="card" style="margin:0;border-top:4px solid #f97316;">
+              <div class="card-body" style="padding:20px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                  <div style="width:48px;height:48px;background:#fff7ed;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">📶</div>
+                  <div>
+                    <div style="font-weight:800;font-size:1.1rem;color:var(--navy)">MAXIS BERHAD</div>
+                    <div style="font-size:.78rem;color:var(--muted)">Telekomunikasi Berdaftar</div>
+                  </div>
+                </div>
+                <ul style="list-style:none;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:6px;">
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Perkhidmatan: Broadband, MBNB</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Pakej: MAXIS HOME / BIZ</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Liputan: Daerah Lundu</li>
+                  <li><i class="fas fa-phone" style="color:var(--navy);margin-right:6px"></i>Talian: 1800-82-1123</li>
+                </ul>
+                <span class="badge b-aktif" style="margin-top:12px;display:inline-flex">✅ Berdaftar Aktif</span>
+              </div>
+            </div>
+
+            <div class="card" style="margin:0;border-top:4px solid #0b2d8c;">
+              <div class="card-body" style="padding:20px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                  <div style="width:48px;height:48px;background:#ede9fe;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🌐</div>
+                  <div>
+                    <div style="font-weight:800;font-size:1.1rem;color:var(--navy)">TM / UNIFI</div>
+                    <div style="font-size:.78rem;color:var(--muted)">Telekomunikasi Berdaftar</div>
+                  </div>
+                </div>
+                <ul style="list-style:none;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:6px;">
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Perkhidmatan: Fiber, UNIFI</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Pakej: UNIFI 30 / 100 / 300</li>
+                  <li><i class="fas fa-check-circle" style="color:#0d9e6e;margin-right:6px"></i>Liputan: Daerah Lundu</li>
+                  <li><i class="fas fa-phone" style="color:var(--navy);margin-right:6px"></i>Talian: 1300-88-1221</li>
+                </ul>
+                <span class="badge b-aktif" style="margin-top:12px;display:inline-flex">✅ Berdaftar Aktif</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Borang Tambah Rekod Telco Sekolah -->
+          <div class="card" style="margin:0;">
+            <div class="card-header">
+              <i class="fas fa-plus-circle"></i>
+              <h2>Daftar Maklumat Telco Bagi Sekolah</h2>
+            </div>
+            <div class="card-body">
+              <form id="formTelco" novalidate>
+                <div class="form-grid-4">
+                  <div class="form-group">
+                    <label>Nama Sekolah <span class="required">*</span></label>
+                    <input type="text" id="telcoSekolah" required placeholder="Nama sekolah" />
+                    <span class="err-msg">Sila masukkan nama sekolah.</span>
+                  </div>
+                  <div class="form-group">
+                    <label>Syarikat Telco <span class="required">*</span></label>
+                    <select id="telcoNama" required>
+                      <option value="">-- Pilih --</option>
+                      <option value="CELCOM">CELCOM</option>
+                      <option value="MAXIS">MAXIS</option>
+                      <option value="TM / UNIFI">TM / UNIFI</option>
+                      <option value="DIGI">DIGI</option>
+                      <option value="YES">YES</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                    </select>
+                    <span class="err-msg">Sila pilih syarikat.</span>
+                  </div>
+                  <div class="form-group">
+                    <label>No. Akaun / Kontrak</label>
+                    <input type="text" id="telcoAkaun" placeholder="cth: ACC-2025-001" />
+                  </div>
+                  <div class="form-group">
+                    <label>Tarikh Kontrak</label>
+                    <input type="date" id="telcoTarikh" />
+                  </div>
+                  <div class="form-group">
+                    <label>Pakej Dilanggan</label>
+                    <input type="text" id="telcoPakej" placeholder="cth: REACH 30" />
+                  </div>
+                  <div class="form-group">
+                    <label>Kos Bulanan (RM)</label>
+                    <input type="number" id="telcoKos" placeholder="0.00" min="0" step="0.01" />
+                  </div>
+                  <div class="form-group">
+                    <label>Status Kontrak</label>
+                    <select id="telcoStatus">
+                      <option value="Aktif">✅ Aktif</option>
+                      <option value="Tamat">⏳ Tamat</option>
+                      <option value="Dalam Proses">🔄 Dalam Proses</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>No. Telefon Telco</label>
+                    <input type="tel" id="telcoTel" placeholder="cth: 1800-82-2828" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="reset" class="btn btn-outline"><i class="fas fa-undo"></i> Set Semula</button>
+                  <button type="submit" class="btn btn-navy"><i class="fas fa-save"></i> Simpan Rekod Telco</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Senarai Telco -->
+          <div style="margin-top:20px;">
+            <div class="toolbar">
+              <input type="text" class="search-box" id="cariTelco" placeholder="🔍 Cari rekod telco sekolah..." />
+              <button class="btn btn-outline btn-sm" onclick="exportCSVTelco()"><i class="fas fa-download"></i> Eksport CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th style="text-align:left;min-width:160px">Nama Sekolah</th>
+                    <th>Syarikat Telco</th>
+                    <th>No. Akaun</th>
+                    <th>Pakej</th>
+                    <th>Kos/Bulan</th>
+                    <th>Status</th>
+                    <th>Tarikh Kontrak</th>
+                    <th>Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody id="bodyTelco">
+                  <tr class="empty-row"><td colspan="9"><i class="fas fa-tower-broadcast"></i> Tiada rekod telco sekolah</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: VIEW DETAIL -->
+  <div id="modalView" class="modal-overlay" hidden>
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <h3 id="modalViewTitle">Maklumat Lengkap</h3>
+        <button class="modal-close" onclick="closeModal('modalView')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="modalViewBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modalView')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SIJIL PREVIEW -->
+  <div id="modalSijil" class="modal-overlay" hidden>
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <h3 id="modalSijilTitle">Pratonton Sijil</h3>
+        <button class="modal-close" onclick="closeModal('modalSijil')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="modalSijilBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modalSijil')">Tutup</button>
+        <button class="btn btn-navy" onclick="window.print()"><i class="fas fa-print"></i> Cetak Sijil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="org">Pejabat Pendidikan Daerah Lundu</div>
+    <div>Unit Pengurusan Teknologi Maklumat &amp; Komunikasi (PTIS) &copy; 2025</div>
+  </footer>
+
+<script>
+/* ============================
+   CLOCK
+============================ */
+function updateClock() {
+  const el = document.getElementById('masa');
+  if (el) el.textContent = new Date().toLocaleTimeString('ms-MY', {
+    hour:'2-digit', minute:'2-digit', second:'2-digit'
+  }) + ' | ' + new Date().toLocaleDateString('ms-MY', {
+    weekday:'short', day:'2-digit', month:'short', year:'numeric'
+  });
+}
+updateClock(); setInterval(updateClock, 1000);
+
+/* ============================
+   STORE
+============================ */
+const db = {
+  capaian: JSON.parse(localStorage.getItem('ict_capaian') || '[]'),
+  sijilP:  JSON.parse(localStorage.getItem('ict_sijilP')  || '[]'),
+  sijilA:  JSON.parse(localStorage.getItem('ict_sijilA')  || '[]'),
+  telco:   JSON.parse(localStorage.getItem('ict_telco')   || '[]'),
+  save() {
+    localStorage.setItem('ict_capaian', JSON.stringify(this.capaian));
+    localStorage.setItem('ict_sijilP',  JSON.stringify(this.sijilP));
+    localStorage.setItem('ict_sijilA',  JSON.stringify(this.sijilA));
+    localStorage.setItem('ict_telco',   JSON.stringify(this.telco));
+  }
+};
+
+/* ============================
+   UTILS
+============================ */
+function genId(p) { return `${p}-${Date.now()}-${Math.floor(Math.random()*1000)}`; }
+function today() { return new Date().toLocaleDateString('ms-MY',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  const icon = type==='success'?'✅':type==='error'?'❌':'ℹ️';
+  t.innerHTML = `${icon} ${msg}`;
+  t.className = `toast ${type} show`;
+  setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+function validate(form) {
+  let ok = true;
+  form.querySelectorAll('[required]').forEach(el => {
+    const e = el.nextElementSibling;
+    if (!el.value.trim()) {
+      el.classList.add('err');
+      if (e&&e.classList.contains('err-msg')) e.classList.add('show');
+      ok = false;
+    } else {
+      el.classList.remove('err');
+      if (e&&e.classList.contains('err-msg')) e.classList.remove('show');
+    }
+  });
+  return ok;
+}
+
+function clearErr(form) {
+  form.querySelectorAll('.err').forEach(e=>e.classList.remove('err'));
+  form.querySelectorAll('.err-msg.show').forEach(e=>e.classList.remove('show'));
+}
+
+function openModal(id)  { document.getElementById(id).removeAttribute('hidden'); }
+function closeModal(id) { document.getElementById(id).setAttribute('hidden',''); }
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target===m) m.setAttribute('hidden',''); });
+});
+
+/* ============================
+   BADGES
+============================ */
+function jenisBadge(v) {
+  const m = { BROADBAND:'b-broadband', FIBER:'b-fiber', MBNB:'b-mbnb' };
+  return `<span class="badge ${m[v]||'b-lain'}">${v}</span>`;
+}
+function telcoBadge(v) {
+  const m = { CELCOM:'b-celcom', MAXIS:'b-maxis', TM:'b-tm', DIGI:'b-digi', UNIFI:'b-unifi', YES:'b-yes' };
+  const k = Object.keys(m).find(k => v.includes(k));
+  return `<span class="badge ${m[k]||'b-lain'}">${v}</span>`;
+}
+function statusBadge(v) {
+  const m = { 'Aktif':'b-aktif','Rosak':'b-rosak','Pending':'b-pending','Selesai':'b-selesai',
+              'Lulus':'b-aktif','Gagal':'b-rosak','Dalam Proses':'b-pending',
+              'Diterima':'b-aktif','Ditolak':'b-rosak','Diterima - Isu':'b-pending',
+              'Pending Tandatangan':'b-pending','Tamat':'b-rosak' };
+  return `<span class="badge ${m[v]||'b-lain'}">${v}</span>`;
+}
+
+/* ============================
+   TABS
+============================ */
+document.querySelectorAll('.page-tab-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.page-tab-btn').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.page-tab').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============================
+   SUMMARY
+============================ */
+function updateSummary() {
+  const aktif = db.capaian.filter(r => r.s1Status === 'Aktif').length;
+  const issue = db.capaian.filter(r => r.s1Status !== 'Aktif').length;
+  document.getElementById('sumSekolah').textContent = db.capaian.length;
+  document.getElementById('sumAktif').textContent   = aktif;
+  document.getElementById('sumSijilP').textContent  = db.sijilP.length;
+  document.getElementById('sumSijilA').textContent  = db.sijilA.length;
+  document.getElementById('sumIssue').textContent   = issue;
+}
+
+/* ============================
+   RENDER: CAPAIAN
+============================ */
+function renderCapaian(data) {
+  const tbody = document.getElementById('bodyCapaian');
+  document.getElementById('countCapaian').textContent = data.length + ' rekod';
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="14"><i class="fas fa-wifi"></i> Tiada rekod capaian internet</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-left"><strong>${r.namaSekolah}</strong></td>
+      <td>${r.kodSekolah}</td>
+      <td>${r.s1Talian||1}</td>
+      <td>${jenisBadge(r.s1Jenis)}</td>
+      <td>${telcoBadge(r.s1Pakej)}</td>
+      <td>${r.s1Pembesar||'—'}</td>
+      <td>${r.s2Talian||1}</td>
+      <td>${r.s2Jenis!=='—'?jenisBadge(r.s2Jenis):'—'}</td>
+      <td>${r.s2Pakej!=='—'?telcoBadge(r.s2Pakej):'—'}</td>
+      <td>${r.s2Pembesar!=='—'?r.s2Pembesar:'—'}</td>
+      <td style="max-width:180px;white-space:normal;font-size:.75rem">${r.s2WallPakej||'—'}</td>
+      <td>${r.s2Tarikh||'—'}</td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn act-view" onclick="viewCapaian('${r.id}')"><i class="fas fa-eye"></i></button>
+          <button class="act-btn act-del"  onclick="delRec('capaian','${r.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ============================
+   RENDER: SIJIL P
+============================ */
+function renderSijilP(data) {
+  const tbody = document.getElementById('bodySijilP');
+  document.getElementById('countSijilP').textContent = data.length + ' rekod';
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="11"><i class="fas fa-certificate"></i> Tiada rekod sijil pentaulihan</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-left"><strong>${r.spNamaSekolah}</strong></td>
+      <td>${r.spKodSekolah||'—'}</td>
+      <td>${r.spNoSijil}</td>
+      <td>${telcoBadge(r.spTelco)}</td>
+      <td>${jenisBadge(r.spJenisCapaian)}</td>
+      <td>${r.spKelajuan||'—'}</td>
+      <td>${statusBadge(r.spKeputusan)}</td>
+      <td>${r.spTarikh||'—'}</td>
+      <td>${r.spTarikhTamat||'—'}</td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn act-view"  onclick="viewSijilP('${r.id}')"><i class="fas fa-eye"></i></button>
+          <button class="act-btn act-edit"  onclick="cetakSatSijilP('${r.id}')"><i class="fas fa-print"></i></button>
+          <button class="act-btn act-del"   onclick="delRec('sijilP','${r.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ============================
+   RENDER: SIJIL A
+============================ */
+function renderSijilA(data) {
+  const tbody = document.getElementById('bodySijilA');
+  document.getElementById('countSijilA').textContent = data.length + ' rekod';
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="11"><i class="fas fa-file-signature"></i> Tiada rekod sijil akuan penerimaan</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-left"><strong>${r.saNamaSekolah}</strong></td>
+      <td>${r.saKodSekolah||'—'}</td>
+      <td>${r.saNoRujukan}</td>
+      <td>${r.saNamaPengetua||'—'}</td>
+      <td>${telcoBadge(r.saTelco)}</td>
+      <td>${jenisBadge(r.saJenis)}</td>
+      <td>${r.saPakej||'—'}</td>
+      <td>${statusBadge(r.saStatus)}</td>
+      <td>${r.saTarikh||'—'}</td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn act-view"  onclick="viewSijilA('${r.id}')"><i class="fas fa-eye"></i></button>
+          <button class="act-btn act-edit"  onclick="cetakSatSijilA('${r.id}')"><i class="fas fa-print"></i></button>
+          <button class="act-btn act-del"   onclick="delRec('sijilA','${r.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ============================
+   RENDER: TELCO
+============================ */
+function renderTelco(data) {
+  const tbody = document.getElementById('bodyTelco');
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="9"><i class="fas fa-tower-broadcast"></i> Tiada rekod telco sekolah</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-left"><strong>${r.telcoSekolah}</strong></td>
+      <td>${telcoBadge(r.telcoNama)}</td>
+      <td>${r.telcoAkaun||'—'}</td>
+      <td>${r.telcoPakej||'—'}</td>
+      <td>${r.telcoKos?'RM '+parseFloat(r.telcoKos).toFixed(2):'—'}</td>
+      <td>${statusBadge(r.telcoStatus)}</td>
+      <td>${r.telcoTarikh||'—'}</td>
+      <td>
+        <div class="act-btns">
+          <button class="act-btn act-del" onclick="delRec('telco','${r.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function refreshAll() {
+  renderCapaian(db.capaian);
+  renderSijilP(db.sijilP);
+  renderSijilA(db.sijilA);
+  renderTelco(db.telco);
+  updateSummary();
+}
+
+/* ============================
+   FORMS
+============================ */
+document.getElementById('formCapaian').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate(this)) return;
+  const r = {
+    id: genId('C'),
+    namaSekolah: document.getElementById('namaSekolah').value.trim(),
+    kodSekolah:  document.getElementById('kodSekolah').value.trim(),
+    lokasiSekolah: document.getElementById('lokasiSekolah').value.trim(),
+    s1Talian:  document.getElementById('s1Talian').value,
+    s1Jenis:   document.getElementById('s1Jenis').value,
+    s1Pakej:   document.getElementById('s1Pakej').value,
+    s1Pembesar:document.getElementById('s1Pembesar').value,
+    s1Status:  document.getElementById('s1Status').value,
+    s2Talian:  document.getElementById('s2Talian').value,
+    s2Jenis:   document.getElementById('s2Jenis').value,
+    s2Pakej:   document.getElementById('s2Pakej').value,
+    s2Pembesar:document.getElementById('s2Pembesar').value,
+    s2WallPakej:document.getElementById('s2WallPakej').value.trim(),
+    s2Tarikh:  document.getElementById('s2Tarikh').value,
+    tarikhRekod: today(),
+  };
+  db.capaian.push(r); db.save(); refreshAll();
+  this.reset(); clearErr(this);
+  showToast('Data capaian internet berjaya disimpan! 📶');
+});
+
+document.getElementById('formSijilP').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate(this)) return;
+  const r = {
+    id: genId('SP'),
+    spNamaSekolah: document.getElementById('spNamaSekolah').value.trim(),
+    spKodSekolah:  document.getElementById('spKodSekolah').value.trim(),
+    spNoSijil:     document.getElementById('spNoSijil').value.trim(),
+    spTarikh:      document.getElementById('spTarikh').value,
+    spTarikhTamat: document.getElementById('spTarikhTamat').value,
+    spTelco:       document.getElementById('spTelco').value,
+    spJenisCapaian:document.getElementById('spJenisCapaian').value,
+    spKelajuan:    document.getElementById('spKelajuan').value.trim(),
+    spKeputusan:   document.getElementById('spKeputusan').value,
+    spPegawai:     document.getElementById('spPegawai').value.trim(),
+    spCatatan:     document.getElementById('spCatatan').value.trim(),
+    tarikhRekod: today(),
+  };
+  db.sijilP.push(r); db.save(); refreshAll();
+  this.reset(); clearErr(this);
+  showToast('Sijil Pentaulihan berjaya disimpan! 📜');
+});
+
+document.getElementById('formSijilA').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate(this)) return;
+  const r = {
+    id: genId('SA'),
+    saNamaSekolah: document.getElementById('saNamaSekolah').value.trim(),
+    saKodSekolah:  document.getElementById('saKodSekolah').value.trim(),
+    saNoRujukan:   document.getElementById('saNoRujukan').value.trim(),
+    saNamaPengetua:document.getElementById('saNamaPengetua').value.trim(),
+    saJawatan:     document.getElementById('saJawatan').value.trim(),
+    saTelco:       document.getElementById('saTelco').value,
+    saJenis:       document.getElementById('saJenis').value,
+    saPakej:       document.getElementById('saPakej').value.trim(),
+    saTarikh:      document.getElementById('saTarikh').value,
+    saStatus:      document.getElementById('saStatus').value,
+    saCatatan:     document.getElementById('saCatatan').value.trim(),
+    tarikhRekod: today(),
+  };
+  db.sijilA.push(r); db.save(); refreshAll();
+  this.reset(); clearErr(this);
+  showToast('Sijil Akuan Penerimaan berjaya disimpan! ✅');
+});
+
+document.getElementById('formTelco').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate(this)) return;
+  const r = {
+    id: genId('T'),
+    telcoSekolah: document.getElementById('telcoSekolah').value.trim(),
+    telcoNama:    document.getElementById('telcoNama').value,
+    telcoAkaun:   document.getElementById('telcoAkaun').value.trim(),
+    telcoTarikh:  document.getElementById('telcoTarikh').value,
+    telcoPakej:   document.getElementById('telcoPakej').value.trim(),
+    telcoKos:     document.getElementById('telcoKos').value,
+    telcoStatus:  document.getElementById('telcoStatus').value,
+    telcoTel:     document.getElementById('telcoTel').value.trim(),
+  };
+  db.telco.push(r); db.save(); refreshAll();
+  this.reset(); clearErr(this);
+  showToast('Rekod telco sekolah berjaya disimpan! 📡');
+});
+
+[...document.querySelectorAll('form')].forEach(f => {
+  f.addEventListener('reset', () => clearErr(f));
+});
+
+/* ============================
+   VIEW MODALS
+============================ */
+function viewCapaian(id) {
+  const r = db.capaian.find(x=>x.id===id); if(!r) return;
+  document.getElementById('modalViewTitle').textContent = '📶 ' + r.namaSekolah;
+  document.getElementById('modalViewBody').innerHTML = `
+    <div class="det-grid">
+      <div class="det-item"><label>Nama Sekolah</label><p>${r.namaSekolah}</p></div>
+      <div class="det-item"><label>Kod Sekolah</label><p>${r.kodSekolah}</p></div>
+      <div class="det-item"><label>Lokasi</label><p>${r.lokasiSekolah||'—'}</p></div>
+      <div class="det-item"><label>Tarikh Rekod</label><p>${r.tarikhRekod}</p></div>
+    </div>
+    <hr style="margin:16px 0;border-color:var(--border)">
+    <strong style="color:var(--navy);font-size:.88rem">SALURAN 1 (UTAMA)</strong>
+    <div class="det-grid" style="margin-top:10px">
+      <div class="det-item"><label>Bil. Talian</label><p>${r.s1Talian}</p></div>
+      <div class="det-item"><label>Jenis</label><p>${r.s1Jenis}</p></div>
+      <div class="det-item"><label>Pakej / Telco</label><p>${r.s1Pakej}</p></div>
+      <div class="det-item"><label>Pembesar</label><p>${r.s1Pembesar}</p></div>
+      <div class="det-item"><label>Status</label><p>${statusBadge(r.s1Status)}</p></div>
+    </div>
+    <hr style="margin:16px 0;border-color:var(--border)">
+    <strong style="color:var(--navy);font-size:.88rem">SALURAN 2 (SANDARAN)</strong>
+    <div class="det-grid" style="margin-top:10px">
+      <div class="det-item"><label>Bil. Talian</label><p>${r.s2Talian}</p></div>
+      <div class="det-item"><label>Jenis</label><p>${r.s2Jenis}</p></div>
+      <div class="det-item"><label>Pakej / Telco</label><p>${r.s2Pakej}</p></div>
+      <div class="det-item"><label>Pembesar</label><p>${r.s2Pembesar}</p></div>
+      <div class="det-item det-full"><label>Jenis Wall / Pakej Penuh</label><p>${r.s2WallPakej||'—'}</p></div>
+      <div class="det-item"><label>Tarikh Pemasangan</label><p>${r.s2Tarikh||'—'}</p></div>
+    </div>
+  `;
+  openModal('modalView');
+}
+
+function viewSijilP(id) {
+  const r = db.sijilP.find(x=>x.id===id); if(!r) return;
+  document.getElementById('modalViewTitle').textContent = '📜 Sijil Pentaulihan — ' + r.spNamaSekolah;
+  document.getElementById('modalViewBody').innerHTML = `
+    <div class="det-grid">
+      <div class="det-item"><label>Nama Sekolah</label><p>${r.spNamaSekolah}</p></div>
+      <div class="det-item"><label>Kod Sekolah</label><p>${r.spKodSekolah||'—'}</p></div>
+      <div class="det-item"><label>No. Sijil</label><p>${r.spNoSijil}</p></div>
+      <div class="det-item"><label>Syarikat Telco</label><p>${r.spTelco}</p></div>
+      <div class="det-item"><label>Jenis Capaian</label><p>${r.spJenisCapaian}</p></div>
+      <div class="det-item"><label>Kelajuan</label><p>${r.spKelajuan||'—'}</p></div>
+      <div class="det-item"><label>Keputusan</label><p>${statusBadge(r.spKeputusan)}</p></div>
+      <div class="det-item"><label>Tarikh Sijil</label><p>${r.spTarikh||'—'}</p></div>
+      <div class="det-item"><label>Tarikh Tamat</label><p>${r.spTarikhTamat||'—'}</p></div>
+      <div class="det-item"><label>Pegawai Pentauliahan</label><p>${r.spPegawai||'—'}</p></div>
+      <div class="det-item det-full"><label>Catatan</label><p>${r.spCatatan||'—'}</p></div>
+    </div>
+  `;
+  openModal('modalView');
+}
+
+function viewSijilA(id) {
+  const r = db.sijilA.find(x=>x.id===id); if(!r) return;
+  document.getElementById('modalViewTitle').textContent = '✅ Sijil Akuan — ' + r.saNamaSekolah;
+  document.getElementById('modalViewBody').innerHTML = `
+    <div class="det-grid">
+      <div class="det-item"><label>Nama Sekolah</label><p>${r.saNamaSekolah}</p></div>
+      <div class="det-item"><label>Kod Sekolah</label><p>${r.saKodSekolah||'—'}</p></div>
+      <div class="det-item"><label>No. Rujukan</label><p>${r.saNoRujukan}</p></div>
+      <div class="det-item"><label>Pengetua / GB</label><p>${r.saNamaPengetua||'—'}</p></div>
+      <div class="det-item"><label>Jawatan</label><p>${r.saJawatan||'—'}</p></div>
+      <div class="det-item"><label>Syarikat Telco</label><p>${r.saTelco}</p></div>
+      <div class="det-item"><label>Jenis Perkhidmatan</label><p>${r.saJenis}</p></div>
+      <div class="det-item"><label>Pakej / Kelajuan</label><p>${r.saPakej||'—'}</p></div>
+      <div class="det-item"><label>Status</label><p>${statusBadge(r.saStatus)}</p></div>
+      <div class="det-item"><label>Tarikh Penerimaan</label><p>${r.saTarikh||'—'}</p></div>
+      <div class="det-item det-full"><label>Catatan</label><p>${r.saCatatan||'—'}</p></div>
+    </div>
+  `;
+  openModal('modalView');
+}
+
+/* ============================
+   CETAK SIJIL
+============================ */
+function sijilHTML(type, r) {
+  const isP = type === 'P';
+  const noDoc   = isP ? r.spNoSijil     : r.saNoRujukan;
+  const sekolah = isP ? r.spNamaSekolah : r.saNamaSekolah;
+  const kod     = isP ? (r.spKodSekolah||'—') : (r.saKodSekolah||'—');
+  const telco   = isP ? r.spTelco       : r.saTelco;
+  const jenis   = isP ? r.spJenisCapaian: r.saJenis;
+  const tarikh  = isP ? (r.spTarikh||'—') : (r.saTarikh||'—');
+  const title   = isP ? 'SIJIL PENTAULIHAN DAN PENGUJIAN' : 'SIJIL AKUAN PENERIMAAN';
+  const sub     = isP ? 'Perkhidmatan Capaian Internet Sekolah' : 'Penerimaan Perkhidmatan Internet Sekolah';
+  const extra   = isP
+    ? `<div class="sijil-field"><label>Kelajuan</label><span>${r.spKelajuan||'—'}</span></div>
+       <div class="sijil-field"><label>Keputusan Pengujian</label><span>${r.spKeputusan}</span></div>
+       <div class="sijil-field"><label>Pegawai Pentauliahan</label><span>${r.spPegawai||'—'}</span></div>`
+    : `<div class="sijil-field"><label>Pakej / Kelajuan</label><span>${r.saPakej||'—'}</span></div>
+       <div class="sijil-field"><label>Status Penerimaan</label><span>${r.saStatus}</span></div>
+       <div class="sijil-field"><label>Pengetua / Guru Besar</label><span>${r.saNamaPengetua||'—'} (${r.saJawatan||'—'})</span></div>`;
+  return `
+    <div class="sijil-preview">
+      <div class="sijil-watermark">PTIS PPD LUNDU</div>
+      <div class="sijil-logo"><i class="fas fa-certificate"></i></div>
+      <div class="sijil-title">${title}</div>
+      <div class="sijil-subtitle">${sub}</div>
+      <div class="sijil-gold-bar"></div>
+      <div class="sijil-body">
+        <div class="sijil-field"><label>No. Dokumen</label><span>${noDoc}</span></div>
+        <div class="sijil-field"><label>Nama Sekolah</label><span>${sekolah}</span></div>
+        <div class="sijil-field"><label>Kod Sekolah</label><span>${kod}</span></div>
+        <div class="sijil-field"><label>Syarikat Telekomunikasi</label><span>${telco}</span></div>
+        <div class="sijil-field"><label>Jenis Perkhidmatan</label><span>${jenis}</span></div>
+        <div class="sijil-field"><label>Tarikh</label><span>${tarikh}</span></div>
+        ${extra}
+        <div class="sijil-gold-bar" style="margin-top:24px"></div>
+        <div class="sijil-sign-row">
+          <div class="sijil-sign-box">
+            <strong>__________________________</strong>
+            Tandatangan Pegawai PTIS<br/>
+            <em>Unit PTIS PPD Lundu</em>
+          </div>
+          <div class="sijil-sign-box">
+            <strong>__________________________</strong>
+            Tandatangan Pengetua / GB<br/>
+            <em>${isP?'Sekolah':'Sekolah Penerima'}</em>
+          </div>
+        </div>
+        <p style="margin-top:18px;font-size:.75rem;color:var(--muted);text-align:center">
+          Sijil ini dikeluarkan oleh Unit PTIS, Pejabat Pendidikan Daerah Lundu &bull; Kementerian Pendidikan Malaysia
+        </p>
+      </div>
+    </div>
+  `;
+}
+
+function cetakSatSijilP(id) {
+  const r = db.sijilP.find(x=>x.id===id); if(!r) return;
+  document.getElementById('modalSijilTitle').textContent = '📜 Sijil Pentaulihan — ' + r.spNamaSekolah;
+  document.getElementById('modalSijilBody').innerHTML = sijilHTML('P', r);
+  openModal('modalSijil');
+}
+
+function cetakSatSijilA(id) {
+  const r = db.sijilA.find(x=>x.id===id); if(!r) return;
+  document.getElementById('modalSijilTitle').textContent = '✅ Sijil Akuan — ' + r.saNamaSekolah;
+  document.getElementById('modalSijilBody').innerHTML = sijilHTML('A', r);
+  openModal('modalSijil');
+}
+
+function cetakSijilP() {
+  if (!db.sijilP.length) { showToast('Tiada sijil pentaulihan untuk dicetak.','error'); return; }
+  const r = db.sijilP[db.sijilP.length-1];
+  cetakSatSijilP(r.id);
+}
+
+function cetakSijilA() {
+  if (!db.sijilA.length) { showToast('Tiada sijil akuan untuk dicetak.','error'); return; }
+  const r = db.sijilA[db.sijilA.length-1];
+  cetakSatSijilA(r.id);
+}
+
+/* ============================
+   DELETE
+============================ */
+function delRec(type, id) {
+  if (!confirm('Padam rekod ini?')) return;
+  db[type] = db[type].filter(r=>r.id!==id);
+  db.save(); refreshAll();
+  showToast('Rekod berjaya dipadam.','info');
+}
+
+/* ============================
+   SEARCH
+============================ */
+document.getElementById('cariCapaian').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  const jenis = document.getElementById('filterJenis').value;
+  const telco = document.getElementById('filterTelco').value;
+  const filtered = db.capaian.filter(r =>
+    (!q || [r.namaSekolah,r.kodSekolah].some(v=>v&&v.toLowerCase().includes(q))) &&
+    (!jenis || r.s1Jenis===jenis) &&
+    (!telco || r.s1Pakej===telco)
+  );
+  renderCapaian(filtered);
+});
+
+['filterJenis','filterTelco'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    document.getElementById('cariCapaian').dispatchEvent(new Event('input'));
+  });
+});
+
+document.getElementById('cariSijilP').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  renderSijilP(db.sijilP.filter(r=>[r.spNamaSekolah,r.spNoSijil,r.spTelco].some(v=>v&&v.toLowerCase().includes(q))));
+});
+
+document.getElementById('cariSijilA').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  renderSijilA(db.sijilA.filter(r=>[r.saNamaSekolah,r.saNoRujukan,r.saTelco].some(v=>v&&v.toLowerCase().includes(q))));
+});
+
+document.getElementById('cariTelco').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  renderTelco(db.telco.filter(r=>[r.telcoSekolah,r.telcoNama].some(v=>v&&v.toLowerCase().includes(q))));
+});
+
+/* ============================
+   EXPORT CSV
+============================ */
+function dlCSV(headers, rows, name) {
+  const csv = [headers,...rows].map(r=>r.map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
+  a.download = `${name}_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  showToast('Data berjaya dieksport.');
+}
+
+function exportCSVCapaian() {
+  if (!db.capaian.length) { showToast('Tiada data.','error'); return; }
+  dlCSV(
+    ['#','Nama Sekolah','Kod','S1 Talian','S1 Jenis','S1 Pakej','S1 Pembesar','S2 Talian','S2 Jenis','S2 Pakej','S2 Pembesar','Wall/Pakej','Tarikh'],
+    db.capaian.map((r,i)=>[i+1,r.namaSekolah,r.kodSekolah,r.s1Talian,r.s1Jenis,r.s1Pakej,r.s1Pembesar,r.s2Talian,r.s2Jenis,r.s2Pakej,r.s2Pembesar,r.s2WallPakej,r.s2Tarikh]),
+    'capaian_internet'
+  );
+}
+
+function exportCSVSijilP() {
+  if (!db.sijilP.length) { showToast('Tiada data.','error'); return; }
+  dlCSV(
+    ['#','Nama Sekolah','Kod','No. Sijil','Telco','Jenis','Kelajuan','Keputusan','Tarikh','Tamat'],
+    db.sijilP.map((r,i)=>[i+1,r.spNamaSekolah,r.spKodSekolah,r.spNoSijil,r.spTelco,r.spJenisCapaian,r.spKelajuan,r.spKeputusan,r.spTarikh,r.spTarikhTamat]),
+    'sijil_pentaulihan'
+  );
+}
+
+function exportCSVSijilA() {
+  if (!db.sijilA.length) { showToast('Tiada data.','error'); return; }
+  dlCSV(
+    ['#','Nama Sekolah','Kod','No. Rujukan','Pengetua','Telco','Jenis','Pakej','Status','Tarikh'],
+    db.sijilA.map((r,i)=>[i+1,r.saNamaSekolah,r.saKodSekolah,r.saNoRujukan,r.saNamaPengetua,r.saTelco,r.saJenis,r.saPakej,r.saStatus,r.saTarikh]),
+    'sijil_akuan_penerimaan'
+  );
+}
+
+function exportCSVTelco() {
+  if (!db.telco.length) { showToast('Tiada data.','error'); return; }
+  dlCSV(
+    ['#','Nama Sekolah','Telco','No. Akaun','Pakej','Kos/Bulan','Status','Tarikh'],
+    db.telco.map((r,i)=>[i+1,r.telcoSekolah,r.telcoNama,r.telcoAkaun,r.telcoPakej,r.telcoKos,r.telcoStatus,r.telcoTarikh]),
+    'rekod_telco'
+  );
+}
+
+/* ============================
+   INIT
+============================ */
+refreshAll();
+</script>
+</body>
+</html>
