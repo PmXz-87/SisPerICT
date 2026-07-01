@@ -1,4 +1,97 @@
 /* ===========================
+   TOPBAR RASMI
+=========================== */
+.topbar-rasmi {
+  background: #002060;
+  color: rgba(255,255,255,.7);
+  font-size: .78rem;
+  padding: 5px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-rasmi span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===========================
+   HEADER RASMI BRAND BAR
+=========================== */
+.header-brand-bar {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo-wrap {
+  width: 62px;
+  height: 62px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 3px solid #FFD700;
+  box-shadow: 0 0 0 3px rgba(255,215,0,.2);
+}
+
+.header-logo-wrap i {
+  font-size: 1.9rem;
+  color: #002060;
+}
+
+.header-kementerian {
+  font-size: .75rem;
+  color: rgba(255,255,255,.65);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.header-jabatan {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 3px 0 2px;
+  line-height: 1.2;
+}
+
+.header-unit {
+  font-size: .85rem;
+  color: #FFD700;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-stripe {
+  height: 5px;
+  background: linear-gradient(to right, #FFD700, #e6c200, #cc0001, #e6c200, #FFD700);
+}
+
+.hero-org-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,215,0,.15);
+  border: 1px solid rgba(255,215,0,.3);
+  color: #FFD700;
+  padding: 5px 16px;
+  border-radius: 30px;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* ===========================
    RESET & BASE
 =========================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
