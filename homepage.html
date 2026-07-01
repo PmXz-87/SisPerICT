@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PTIS PPD Lundu — Sistem Pengurusan Peralatan ICT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #003380;
+      --navy-dk: #002060;
+      --gold:    #FFD700;
+      --gold-dk: #e6c200;
+      --red:     #cc0001;
+      --bg:      #f0f4f8;
+      --surface: #ffffff;
+      --border:  #d1d9e0;
+      --text:    #1e2d3d;
+      --muted:   #6b7c93;
+      --radius:  14px;
+      --shadow:  0 4px 24px rgba(0,0,0,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ======= TOPBAR KERAJAAN ======= */
+    .topbar {
+      background: var(--navy-dk);
+      color: rgba(255,255,255,.75);
+      font-size: .78rem;
+      padding: 5px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar span { display: flex; align-items: center; gap: 6px; }
+
+    /* ======= HEADER RASMI ======= */
+    .header-rasmi {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%);
+      padding: 0;
+      box-shadow: 0 3px 16px rgba(0,51,128,.35);
+    }
+
+    .header-brand {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-wrap {
+      width: 72px;
+      height: 72px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 4px rgba(255,215,0,.2);
+    }
+
+    .logo-wrap i {
+      font-size: 2.2rem;
+      color: var(--navy);
+    }
+
+    .brand-text { color: #fff; }
+
+    .brand-text .kementerian {
+      font-size: .78rem;
+      opacity: .75;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .brand-text .jabatan {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 3px 0;
+    }
+
+    .brand-text .unit {
+      font-size: .88rem;
+      color: var(--gold);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Gold divider */
+    .header-stripe {
+      height: 5px;
+      background: linear-gradient(to right, var(--gold), var(--gold-dk), var(--red), var(--gold-dk), var(--gold));
+    }
+
+    /* ======= NAV ======= */
+    .header-nav {
+      background: rgba(0,0,0,.25);
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      overflow-x: auto;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      padding: 11px 18px;
+      font-size: .875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ======= HERO ======= */
+    .hero {
+      background: linear-gradient(160deg, var(--navy-dk) 0%, #001540 60%, #0a0a2e 100%);
+      color: #fff;
+      padding: 64px 24px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255,215,0,.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0,100,255,.08) 0%, transparent 40%);
+    }
+
+    .hero-content { max-width: 860px; margin: 0 auto; position: relative; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,215,0,.15);
+      border: 1px solid rgba(255,215,0,.3);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1rem;
+      opacity: .75;
+      margin-bottom: 10px;
+    }
+
+    .hero-org {
+      font-size: .88rem;
+      color: var(--gold);
+      opacity: .9;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* ======= STATS ======= */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      padding: 22px 30px;
+      min-width: 150px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: transform .2s, background .2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,.13);
+    }
+
+    .stat-card .num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-card .lbl {
+      font-size: .78rem;
+      opacity: .7;
+      margin-top: 6px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    /* ======= CTA BUTTONS ======= */
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: all .2s;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy-dk);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,215,0,.3);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.4);
+    }
+
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,.1);
+      border-color: #fff;
+    }
+
+    /* ======= MAIN ======= */
+    .main { max-width: 1300px; margin: 0 auto; padding: 48px 24px; }
+
+    /* ======= SECTION TITLE ======= */
+    .section-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-title h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .title-line {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(to right, var(--navy), var(--gold));
+      border-radius: 2px;
+      margin: 10px auto 0;
+    }
+
+    /* ======= MODUL CARDS ======= */
+    .modul-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 900px) { .modul-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .modul-grid { grid-template-columns: 1fr; } }
+
+    .modul-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modul-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,51,128,.15);
+    }
+
+    .modul-top {
+      padding: 32px 24px 20px;
+      text-align: center;
+    }
+
+    .modul-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.7rem;
+    }
+
+    .icon-blue   { background: #dbeafe; color: #1d4ed8; }
+    .icon-green  { background: #dcfce7; color: #15803d; }
+    .icon-orange { background: #ffedd5; color: #c2410c; }
+    .icon-purple { background: #f3e8ff; color: #7e22ce; }
+    .icon-teal   { background: #ccfbf1; color: #0f766e; }
+    .icon-rose   { background: #ffe4e6; color: #be123c; }
+
+    .modul-top h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .modul-top p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .modul-footer {
+      margin-top: auto;
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .82rem;
+    }
+
+    .modul-footer span { color: var(--muted); }
+
+    .modul-footer .go {
+      color: var(--navy);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ======= INFO BANNER ======= */
+    .info-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dk) 100%);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
+    .info-banner .banner-icon {
+      font-size: 3rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .info-banner h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .info-banner p {
+      opacity: .8;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .info-banner .btn { margin-top: 14px; }
+
+    /* ======= TATACARA ======= */
+    .tatacara-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 900px) { .tatacara-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .tatacara-grid { grid-template-columns: 1fr; } }
+
+    .step-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0 auto 14px;
+    }
+
+    .step-card h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ======= MAKLUMAT PPD ======= */
+    .ppd-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 700px) { .ppd-grid { grid-template-columns: 1fr; } }
+
+    .ppd-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .ppd-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .info-list { list-style: none; }
+
+    .info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: .88rem;
+    }
+
+    .info-list li:last-child { border-bottom: none; }
+
+    .info-list li i {
+      color: var(--navy);
+      width: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-list li span { color: var(--muted); }
+    .info-list li strong { display: block; color: var(--text); }
+
+    /* ======= FOOTER ======= */
+    .footer {
+      background: var(--navy-dk);
+      color: rgba(255,255,255,.7);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .footer .org {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .footer .sub { font-size: .82rem; opacity: .7; }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      font-size: .82rem;
+      transition: color .2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: .78rem;
+      opacity: .5;
+      margin-top: 12px;
+    }
+
+    /* ======= TICKER ======= */
+    .ticker-bar {
+      background: var(--gold);
+      color: var(--navy-dk);
+      padding: 7px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-content {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
+
+    /* ======= NOTICE BAND ======= */
+    .notice-band {
+      background: #fff3cd;
+      border-left: 4px solid #e6a817;
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .88rem;
+      color: #7c5a00;
+    }
+
+    .notice-band i { font-size: 1.1rem; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span><i class="fas fa-globe"></i> Portal Rasmi PTIS PPD Lundu</span>
+    <span id="clockBar"><i class="fas fa-clock"></i> <span id="masa"></span></span>
+  </div>
+
+  <!-- HEADER RASMI -->
+  <header class="header-rasmi">
+    <div class="header-brand">
+      <div class="logo-wrap">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="brand-text">
+        <div class="kementerian">🇲🇾 Kementerian Pendidikan Malaysia</div>
+        <div class="jabatan">Pejabat Pendidikan Daerah Lundu</div>
+        <div class="unit">
+          <i class="fas fa-microchip"></i>
+          Unit Pengurusan Teknologi Maklumat &amp; Komunikasi (PTIS)
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="header-nav">
+      <div class="nav-inner">
+        <a href="homepage.html" class="nav-link active"><i class="fas fa-home"></i> Laman Utama</a>
+        <a href="index.html#pendaftaran" class="nav-link"><i class="fas fa-plus-circle"></i> Daftar Peralatan</a>
+        <a href="index.html#dokumen" class="nav-link"><i class="fas fa-folder-open"></i> Dokumen ICT</a>
+        <a href="index.html#respon" class="nav-link"><i class="fas fa-comments"></i> Respon Pengadu</a>
+        <a href="index.html#senarai" class="nav-link"><i class="fas fa-list-alt"></i> Senarai Rekod</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- GOLD STRIPE -->
+  <div class="header-stripe"></div>
+
+  <!-- TICKER -->
+  <div class="ticker-bar">
+    <span class="ticker-content">
+      📢 &nbsp;&nbsp; Selamat Datang ke Portal PTIS PPD Lundu &nbsp;|&nbsp;
+      🖥️ Sila daftarkan semua peralatan ICT baharu dalam sistem ini &nbsp;|&nbsp;
+      📋 Laporan kerosakan peralatan boleh dikemukakan melalui modul Respon Pengadu &nbsp;|&nbsp;
+      📞 Hubungi Unit PTIS untuk bantuan teknikal: 082-XXXXXX &nbsp;|&nbsp;
+      ✅ Sistem ini digunakan untuk pengurusan aset ICT sekolah-sekolah di bawah PPD Lundu &nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-shield-halved"></i>
+        SISTEM PENGURUSAN ICT RASMI
+      </div>
+      <h1>Portal <span>SisPerICT</span><br/>PPD Lundu</h1>
+      <p class="hero-sub">Platform bersepadu pengurusan peralatan, dokumen dan aduan ICT</p>
+      <p class="hero-org">
+        <i class="fas fa-map-marker-alt"></i>
+        Unit PTIS, Pejabat Pendidikan Daerah Lundu, Sarawak
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="num" id="heroPeralatan">0</span>
+          <span class="lbl">Peralatan Berdaftar</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" id="heroDokumen">0</span>
+          <span class="lbl">Dokumen Dimuat Naik</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" id="heroAduan">0</span>
+          <span class="lbl">Aduan Diterima</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" id="heroSelesai">0</span>
+          <span class="lbl">Aduan Selesai</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="index.html#pendaftaran" class="btn btn-gold">
+          <i class="fas fa-plus-circle"></i> Daftar Peralatan ICT
+        </a>
+        <a href="index.html#respon" class="btn btn-outline-white">
+          <i class="fas fa-comment-medical"></i> Kemukakan Aduan
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- NOTICE -->
+    <div class="notice-band">
+      <i class="fas fa-info-circle"></i>
+      <div>
+        <strong>Makluman:</strong> Semua peralatan ICT yang diterima atau dibeli perlu didaftarkan dalam sistem ini dalam tempoh <strong>7 hari bekerja</strong> selepas penerimaan. Sila hubungi Unit PTIS jika memerlukan bantuan.
+      </div>
+    </div>
+
+    <!-- MODUL UTAMA -->
+    <div class="section-title">
+      <h2>Modul Utama Sistem</h2>
+      <p>Pilih modul yang diperlukan untuk memulakan proses pengurusan peralatan ICT</p>
+      <div class="title-line"></div>
+    </div>
+
+    <div class="modul-grid">
+
+      <a href="index.html#pendaftaran" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-blue">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3>Pendaftaran Peralatan ICT</h3>
+          <p>Daftarkan peralatan ICT baharu termasuk komputer, pencetak, projektor dan peralatan rangkaian.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-database"></i> Pengurusan Aset</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="index.html#dokumen" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-green">
+            <i class="fas fa-folder-open"></i>
+          </div>
+          <h3>Pengurusan Dokumen ICT</h3>
+          <p>Muat naik dan uruskan dokumen seperti waranti, invois, manual pengguna dan laporan teknikal.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-file-alt"></i> Arkib Dokumen</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="index.html#respon" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-orange">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>Respon Pengadu</h3>
+          <p>Rekodkan aduan kerosakan peralatan ICT dan respon tindakan daripada unit teknikal PTIS.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-headset"></i> Meja Bantuan</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="index.html#senarai" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-purple">
+            <i class="fas fa-list-alt"></i>
+          </div>
+          <h3>Senarai & Laporan</h3>
+          <p>Semak senarai lengkap peralatan, dokumen dan aduan. Eksport data dalam format CSV.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-chart-bar"></i> Laporan Data</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="index.html#senarai" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-teal">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3>Carian Peralatan</h3>
+          <p>Cari peralatan menggunakan nombor aset, nama, jabatan atau status peralatan dengan cepat.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-filter"></i> Carian Pantas</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="index.html#senarai" class="modul-card">
+        <div class="modul-top">
+          <div class="modul-icon icon-rose">
+            <i class="fas fa-file-csv"></i>
+          </div>
+          <h3>Eksport Data</h3>
+          <p>Muat turun data peralatan, dokumen dan aduan dalam format CSV untuk pelaporan rasmi.</p>
+        </div>
+        <div class="modul-footer">
+          <span><i class="fas fa-download"></i> Muat Turun</span>
+          <span class="go">Masuk <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+      <div class="banner-icon"><i class="fas fa-bullhorn"></i></div>
+      <div style="flex:1">
+        <h3>Aduan Kerosakan Peralatan ICT?</h3>
+        <p>
+          Jika anda menghadapi masalah dengan peralatan ICT di sekolah atau pejabat anda,
+          sila kemukakan aduan melalui Modul Respon Pengadu. Pihak Unit PTIS PPD Lundu
+          akan memproses aduan anda dalam masa <strong>3 hari bekerja</strong>.
+        </p>
+        <a href="index.html#respon" class="btn btn-gold">
+          <i class="fas fa-paper-plane"></i> Kemukakan Aduan Sekarang
+        </a>
+      </div>
+    </div>
+
+    <!-- TATACARA -->
+    <div class="section-title">
+      <h2>Tatacara Penggunaan Sistem</h2>
+      <p>Ikuti langkah mudah ini untuk mendaftarkan peralatan ICT anda</p>
+      <div class="title-line"></div>
+    </div>
+
+    <div class="tatacara-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Daftar Peralatan</h4>
+        <p>Masukkan maklumat lengkap peralatan ICT termasuk nama, jenis, no. siri dan jabatan.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Muat Naik Dokumen</h4>
+        <p>Lampirkan dokumen berkaitan seperti waranti, invois atau surat keputusan pembelian.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Kemukakan Aduan</h4>
+        <p>Jika peralatan rosak, isi borang aduan dengan perihal masalah secara terperinci.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>Pantau Status</h4>
+        <p>Semak status aduan dan respon daripada unit teknikal PTIS melalui senarai rekod.</p>
+      </div>
+    </div>
+
+    <!-- MAKLUMAT PPD -->
+    <div class="section-title">
+      <h2>Maklumat Hubungan</h2>
+      <p>Unit PTIS PPD Lundu sedia membantu anda</p>
+      <div class="title-line"></div>
+    </div>
+
+    <div class="ppd-grid">
+      <div class="ppd-card">
+        <h3><i class="fas fa-building"></i> Pejabat Pendidikan Daerah Lundu</h3>
+        <ul class="info-list">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <span>Alamat</span>
+              <strong>Pejabat Pendidikan Daerah Lundu,<br/>Lundu, Sarawak</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <div>
+              <span>No. Telefon</span>
+              <strong>082-XXXXXX</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-fax"></i>
+            <div>
+              <span>No. Faks</span>
+              <strong>082-XXXXXX</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <div>
+              <span>E-mel</span>
+              <strong>ppd.lundu@moe.gov.my</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-clock"></i>
+            <div>
+              <span>Waktu Operasi</span>
+              <strong>Isnin – Jumaat: 8:00 pagi – 5:00 petang</strong>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ppd-card">
+        <h3><i class="fas fa-microchip"></i> Unit PTIS — Pegawai Bertugas</h3>
+        <ul class="info-list">
+          <li>
+            <i class="fas fa-user-tie"></i>
+            <div>
+              <span>Pegawai Teknologi Pendidikan</span>
+              <strong>— Hubungi PPD Lundu —</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-tools"></i>
+            <div>
+              <span>Skop Perkhidmatan</span>
+              <strong>Sokongan teknikal ICT sekolah daerah Lundu</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-school"></i>
+            <div>
+              <span>Kawasan Liputan</span>
+              <strong>Semua sekolah dalam Daerah Lundu, Sarawak</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+              <span>Kecemasan ICT</span>
+              <strong>Hubungi terus Unit PTIS semasa waktu pejabat</strong>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-info-circle"></i>
+            <div>
+              <span>Sistem ini dibangunkan oleh</span>
+              <strong>Unit PTIS PPD Lundu © 2025</strong>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="org">Pejabat Pendidikan Daerah Lundu</div>
+      <div class="sub">Unit Pengurusan Teknologi Maklumat &amp; Komunikasi (PTIS)</div>
+      <div class="footer-links">
+        <a href="homepage.html"><i class="fas fa-home"></i> Laman Utama</a>
+        <a href="index.html#pendaftaran"><i class="fas fa-laptop"></i> Daftar Peralatan</a>
+        <a href="index.html#dokumen"><i class="fas fa-folder"></i> Dokumen</a>
+        <a href="index.html#respon"><i class="fas fa-comments"></i> Aduan</a>
+        <a href="index.html#senarai"><i class="fas fa-list"></i> Senarai</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2025 PTIS PPD Lundu — Kementerian Pendidikan Malaysia. Hak cipta terpelihara.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('masa').textContent = now.toLocaleTimeString('ms-MY', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      }) + ' | ' + now.toLocaleDateString('ms-MY', {
+        weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+      });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Stats dari localStorage
+    function loadStats() {
+      const p = JSON.parse(localStorage.getItem('ict_peralatan') || '[]');
+      const d = JSON.parse(localStorage.getItem('ict_dokumen')   || '[]');
+      const a = JSON.parse(localStorage.getItem('ict_aduan')     || '[]');
+      const selesai = a.filter(x => x.statusAduan === 'Selesai').length;
+
+      document.getElementById('heroPeralatan').textContent = p.length;
+      document.getElementById('heroDokumen').textContent   = d.length;
+      document.getElementById('heroAduan').textContent     = a.length;
+      document.getElementById('heroSelesai').textContent   = selesai;
+    }
+    loadStats();
+  </script>
+
+</body>
+</html>
