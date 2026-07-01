@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Pengurusan Peralatan ICT</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <i class="fas fa-laptop-code"></i>
+        <span>SisPer<strong>ICT</strong></span>
+      </div>
+      <nav class="nav">
+        <a href="#pendaftaran" class="nav-link active"><i class="fas fa-plus-circle"></i> Daftar Peralatan</a>
+        <a href="#dokumen" class="nav-link"><i class="fas fa-folder-open"></i> Dokumen</a>
+        <a href="#respon" class="nav-link"><i class="fas fa-comments"></i> Respon Pengadu</a>
+        <a href="#senarai" class="nav-link"><i class="fas fa-list"></i> Senarai</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1><i class="fas fa-shield-halved"></i> Sistem Pengurusan Peralatan ICT</h1>
+      <p>Platform bersepadu untuk pendaftaran, pengurusan dokumen dan pengendalian aduan peralatan ICT</p>
+      <div class="hero-stats">
+        <div class="stat-box"><span id="totalPeralatan">0</span><label>Peralatan Berdaftar</label></div>
+        <div class="stat-box"><span id="totalDokumen">0</span><label>Dokumen Dimuat Naik</label></div>
+        <div class="stat-box"><span id="totalAduan">0</span><label>Aduan Diterima</label></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-container">
+
+    <!-- ===== SECTION 1: PENDAFTARAN PERALATAN ===== -->
+    <section id="pendaftaran" class="card">
+      <div class="card-header">
+        <i class="fas fa-plus-circle"></i>
+        <h2>Pendaftaran Peralatan ICT</h2>
+      </div>
+      <div class="card-body">
+        <form id="formPeralatan" novalidate>
+
+          <div class="form-grid">
+            <!-- Maklumat Asas -->
+            <div class="form-section">
+              <h3><i class="fas fa-info-circle"></i> Maklumat Asas</h3>
+
+              <div class="form-group">
+                <label for="namaPeralatan">Nama Peralatan <span class="required">*</span></label>
+                <input type="text" id="namaPeralatan" placeholder="cth: Komputer Riba Dell Latitude 5520" required />
+                <span class="error-msg">Sila masukkan nama peralatan.</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="jenisPeralatan">Jenis Peralatan <span class="required">*</span></label>
+                  <select id="jenisPeralatan" required>
+                    <option value="">-- Pilih Jenis --</option>
+                    <option value="Komputer Riba">Komputer Riba</option>
+                    <option value="Komputer Meja">Komputer Meja</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Pencetak">Pencetak</option>
+                    <option value="Pengimbas">Pengimbas</option>
+                    <option value="Projektor">Projektor</option>
+                    <option value="Pelayan (Server)">Pelayan (Server)</option>
+                    <option value="Rangkaian">Peralatan Rangkaian</option>
+                    <option value="Telefon">Telefon / VoIP</option>
+                    <option value="Lain-lain">Lain-lain</option>
+                  </select>
+                  <span class="error-msg">Sila pilih jenis peralatan.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="statusPeralatan">Status <span class="required">*</span></label>
+                  <select id="statusPeralatan" required>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Aktif">✅ Aktif</option>
+                    <option value="Rosak">🔴 Rosak</option>
+                    <option value="Penyelenggaraan">🔧 Dalam Penyelenggaraan</option>
+                    <option value="Lupus">⚫ Dilupuskan</option>
+                  </select>
+                  <span class="error-msg">Sila pilih status peralatan.</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="jenama">Jenama / Model</label>
+                  <input type="text" id="jenama" placeholder="cth: Dell, HP, Lenovo" />
+                </div>
+                <div class="form-group">
+                  <label for="noSiri">No. Siri / Tag Aset <span class="required">*</span></label>
+                  <input type="text" id="noSiri" placeholder="cth: ICT-2024-0001" required />
+                  <span class="error-msg">Sila masukkan nombor siri.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maklumat Lokasi -->
+            <div class="form-section">
+              <h3><i class="fas fa-map-marker-alt"></i> Lokasi & Penempatan</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="jabatan">Jabatan / Unit <span class="required">*</span></label>
+                  <input type="text" id="jabatan" placeholder="cth: Jabatan IT" required />
+                  <span class="error-msg">Sila masukkan jabatan.</span>
+                </div>
+                <div class="form-group">
+                  <label for="lokasi">Lokasi / Bilik</label>
+                  <input type="text" id="lokasi" placeholder="cth: Bilik 3-01, Aras 3" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="penggunaSemasa">Pengguna Semasa</label>
+                <input type="text" id="penggunaSemasa" placeholder="Nama pengguna yang memegang aset" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tarikhPerolehan">Tarikh Perolehan</label>
+                  <input type="date" id="tarikhPerolehan" />
+                </div>
+                <div class="form-group">
+                  <label for="nilaiPerolehan">Nilai Perolehan (RM)</label>
+                  <input type="number" id="nilaiPerolehan" placeholder="0.00" min="0" step="0.01" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="catatanPeralatan">Catatan Tambahan</label>
+                <textarea id="catatanPeralatan" rows="3" placeholder="Maklumat tambahan berkaitan peralatan..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary"><i class="fas fa-undo"></i> Set Semula</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan Peralatan</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 2: DOKUMEN PERALATAN ===== -->
+    <section id="dokumen" class="card">
+      <div class="card-header">
+        <i class="fas fa-folder-open"></i>
+        <h2>Pengurusan Dokumen Peralatan ICT</h2>
+      </div>
+      <div class="card-body">
+        <form id="formDokumen" novalidate>
+
+          <div class="form-grid">
+            <div class="form-section">
+              <h3><i class="fas fa-file-alt"></i> Maklumat Dokumen</h3>
+
+              <div class="form-group">
+                <label for="tajukDokumen">Tajuk Dokumen <span class="required">*</span></label>
+                <input type="text" id="tajukDokumen" placeholder="cth: Warranty Certificate Dell Latitude 5520" required />
+                <span class="error-msg">Sila masukkan tajuk dokumen.</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="jenisDokumen">Jenis Dokumen <span class="required">*</span></label>
+                  <select id="jenisDokumen" required>
+                    <option value="">-- Pilih Jenis --</option>
+                    <option value="Waranti">📋 Sijil Waranti</option>
+                    <option value="Invois">🧾 Invois / Resit</option>
+                    <option value="Manual">📖 Manual Pengguna</option>
+                    <option value="Laporan Teknikal">🔧 Laporan Teknikal</option>
+                    <option value="Surat Keputusan">📝 Surat Keputusan</option>
+                    <option value="Borang Lupus">🗑️ Borang Pelupusan</option>
+                    <option value="Lain-lain">📁 Lain-lain</option>
+                  </select>
+                  <span class="error-msg">Sila pilih jenis dokumen.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="asetBerkaitan">No. Aset Berkaitan</label>
+                  <input type="text" id="asetBerkaitan" placeholder="cth: ICT-2024-0001" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tarikhDokumen">Tarikh Dokumen</label>
+                  <input type="date" id="tarikhDokumen" />
+                </div>
+                <div class="form-group">
+                  <label for="tarikhTamat">Tarikh Tamat (jika berkaitan)</label>
+                  <input type="date" id="tarikhTamat" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3><i class="fas fa-upload"></i> Muat Naik Dokumen</h3>
+
+              <div class="upload-zone" id="uploadZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Seret & lepas fail di sini</p>
+                <p class="upload-sub">atau</p>
+                <label for="fileDokumen" class="btn btn-outline">
+                  <i class="fas fa-folder"></i> Pilih Fail
+                </label>
+                <input type="file" id="fileDokumen" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xlsx" multiple hidden />
+                <p class="upload-hint">PDF, DOC, DOCX, JPG, PNG, XLSX (Maks: 10MB)</p>
+              </div>
+
+              <div id="fileList" class="file-list"></div>
+
+              <div class="form-group">
+                <label for="catatanDokumen">Catatan Dokumen</label>
+                <textarea id="catatanDokumen" rows="3" placeholder="Keterangan ringkas mengenai dokumen ini..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary" id="resetDokumen"><i class="fas fa-undo"></i> Set Semula</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i> Muat Naik Dokumen</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 3: RESPON PENGADU ===== -->
+    <section id="respon" class="card">
+      <div class="card-header">
+        <i class="fas fa-comments"></i>
+        <h2>Respon Daripada Pihak Pengadu</h2>
+      </div>
+      <div class="card-body">
+        <form id="formRespon" novalidate>
+
+          <div class="form-grid">
+            <div class="form-section">
+              <h3><i class="fas fa-user"></i> Maklumat Pengadu</h3>
+
+              <div class="form-group">
+                <label for="namaPengadu">Nama Pengadu <span class="required">*</span></label>
+                <input type="text" id="namaPengadu" placeholder="Nama penuh pengadu" required />
+                <span class="error-msg">Sila masukkan nama pengadu.</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="emailPengadu">E-mel <span class="required">*</span></label>
+                  <input type="email" id="emailPengadu" placeholder="contoh@mail.gov.my" required />
+                  <span class="error-msg">Sila masukkan e-mel yang sah.</span>
+                </div>
+                <div class="form-group">
+                  <label for="noTelPengadu">No. Telefon</label>
+                  <input type="tel" id="noTelPengadu" placeholder="cth: 03-88801234" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="jabatanPengadu">Jabatan / Unit <span class="required">*</span></label>
+                  <input type="text" id="jabatanPengadu" placeholder="Jabatan pengadu" required />
+                  <span class="error-msg">Sila masukkan jabatan.</span>
+                </div>
+                <div class="form-group">
+                  <label for="noAduan">No. Aduan / Rujukan</label>
+                  <input type="text" id="noAduan" placeholder="cth: ADU-2024-0001" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="peralatanTerlibat">Peralatan Terlibat</label>
+                <input type="text" id="peralatanTerlibat" placeholder="Nama / No. aset peralatan bermasalah" />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3><i class="fas fa-exclamation-triangle"></i> Butiran Aduan & Respon</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="kategoriAduan">Kategori Aduan <span class="required">*</span></label>
+                  <select id="kategoriAduan" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Kerosakan Perkakasan">🖥️ Kerosakan Perkakasan</option>
+                    <option value="Masalah Perisian">💾 Masalah Perisian</option>
+                    <option value="Masalah Rangkaian">🌐 Masalah Rangkaian</option>
+                    <option value="Peralatan Hilang">🔍 Peralatan Hilang</option>
+                    <option value="Penyelenggaraan">🔧 Permintaan Penyelenggaraan</option>
+                    <option value="Lain-lain">📋 Lain-lain</option>
+                  </select>
+                  <span class="error-msg">Sila pilih kategori aduan.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="tahapKeutamaan">Tahap Keutamaan</label>
+                  <select id="tahapKeutamaan">
+                    <option value="Rendah">🟢 Rendah</option>
+                    <option value="Sederhana" selected>🟡 Sederhana</option>
+                    <option value="Tinggi">🟠 Tinggi</option>
+                    <option value="Kritikal">🔴 Kritikal</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="perihalAduan">Perihal Aduan <span class="required">*</span></label>
+                <textarea id="perihalAduan" rows="4" placeholder="Huraikan masalah yang dihadapi secara terperinci..." required></textarea>
+                <span class="error-msg">Sila masukkan perihal aduan.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="responPihakIT">Respon Pihak IT / Teknikal <span class="required">*</span></label>
+                <textarea id="responPihakIT" rows="4" placeholder="Tindakan yang telah / akan diambil oleh pihak teknikal..." required></textarea>
+                <span class="error-msg">Sila masukkan respon pihak IT.</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="statusAduan">Status Aduan <span class="required">*</span></label>
+                  <select id="statusAduan" required>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Baru">🆕 Baru Diterima</option>
+                    <option value="Dalam Proses">⚙️ Dalam Proses</option>
+                    <option value="Menunggu">⏳ Menunggu Alat Ganti</option>
+                    <option value="Selesai">✅ Selesai</option>
+                    <option value="Ditutup">🔒 Ditutup</option>
+                  </select>
+                  <span class="error-msg">Sila pilih status aduan.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="tarikhRespon">Tarikh Respon</label>
+                  <input type="date" id="tarikhRespon" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="maklumBalas">Maklum Balas Pengadu</label>
+                <textarea id="maklumBalas" rows="3" placeholder="Maklum balas / kepuasan pengadu terhadap penyelesaian..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary"><i class="fas fa-undo"></i> Set Semula</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Hantar Respon</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 4: SENARAI REKOD ===== -->
+    <section id="senarai" class="card">
+      <div class="card-header">
+        <i class="fas fa-list-alt"></i>
+        <h2>Senarai Rekod</h2>
+      </div>
+      <div class="card-body">
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="tabPeralatan">
+            <i class="fas fa-laptop"></i> Peralatan (<span id="countPeralatan">0</span>)
+          </button>
+          <button class="tab-btn" data-tab="tabDokumen">
+            <i class="fas fa-file"></i> Dokumen (<span id="countDokumen">0</span>)
+          </button>
+          <button class="tab-btn" data-tab="tabAduan">
+            <i class="fas fa-comment-alt"></i> Aduan (<span id="countAduan">0</span>)
+          </button>
+        </div>
+
+        <!-- Tab: Peralatan -->
+        <div id="tabPeralatan" class="tab-content active">
+          <div class="table-toolbar">
+            <input type="text" id="cariPeralatan" placeholder="🔍 Cari peralatan..." class="search-input" />
+            <button class="btn btn-sm btn-outline" onclick="exportCSV('peralatan')"><i class="fas fa-download"></i> Eksport CSV</button>
+          </div>
+          <div class="table-wrapper">
+            <table id="tablePeralatan">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>No. Aset</th>
+                  <th>Nama Peralatan</th>
+                  <th>Jenis</th>
+                  <th>Jabatan</th>
+                  <th>Status</th>
+                  <th>Tarikh Daftar</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="bodyPeralatan">
+                <tr class="empty-row">
+                  <td colspan="8"><i class="fas fa-inbox"></i> Tiada rekod peralatan</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: Dokumen -->
+        <div id="tabDokumen" class="tab-content">
+          <div class="table-toolbar">
+            <input type="text" id="cariDokumen" placeholder="🔍 Cari dokumen..." class="search-input" />
+            <button class="btn btn-sm btn-outline" onclick="exportCSV('dokumen')"><i class="fas fa-download"></i> Eksport CSV</button>
+          </div>
+          <div class="table-wrapper">
+            <table id="tableDokumen">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tajuk Dokumen</th>
+                  <th>Jenis</th>
+                  <th>No. Aset</th>
+                  <th>Tarikh</th>
+                  <th>Fail</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="bodyDokumen">
+                <tr class="empty-row">
+                  <td colspan="7"><i class="fas fa-inbox"></i> Tiada rekod dokumen</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab: Aduan -->
+        <div id="tabAduan" class="tab-content">
+          <div class="table-toolbar">
+            <input type="text" id="cariAduan" placeholder="🔍 Cari aduan..." class="search-input" />
+            <button class="btn btn-sm btn-outline" onclick="exportCSV('aduan')"><i class="fas fa-download"></i> Eksport CSV</button>
+          </div>
+          <div class="table-wrapper">
+            <table id="tableAduan">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>No. Aduan</th>
+                  <th>Pengadu</th>
+                  <th>Kategori</th>
+                  <th>Keutamaan</th>
+                  <th>Status</th>
+                  <th>Tarikh Respon</th>
+                  <th>Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="bodyAduan">
+                <tr class="empty-row">
+                  <td colspan="8"><i class="fas fa-inbox"></i> Tiada rekod aduan</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast"></div>
+
+  <!-- MODAL VIEW -->
+  <div id="modal" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitle">Maklumat Rekod</h3>
+        <button onclick="closeModal()" class="modal-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button onclick="closeModal()" class="btn btn-secondary">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p><i class="fas fa-laptop-code"></i> SisPerICT &copy; 2024 — Sistem Pengurusan Peralatan ICT</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
